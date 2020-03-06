@@ -1,0 +1,15 @@
+{
+  "name": "ecampus-scrapper",
+  "version": "1.0.0",
+  "description": "Um scrapper para extrair dados de disciplinas de outros cursos na solicação de matrícula da UFAM",
+  "main": "index.js",
+  "author": "Estevão Costa",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^8.1.0",
+    "puppeteer": "^2.1.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

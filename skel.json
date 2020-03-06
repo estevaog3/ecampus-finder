@@ -1,0 +1,28 @@
+{
+  "cursos":[
+    {
+      "codigo": "FA01 ",
+      "nome": " Administração (Matutino)",
+      "disciplinas": [
+        {
+          "codigo": "FAA001",
+          "nome":"TEORIA DE ADMINISTRACÃO I",
+          "turmas":[
+            {
+              "codigo": "1",
+              "numeroDeVagas": "60",
+              "numeroDeSolicitacoes": "53",
+              "horarios":[
+                {
+                  "dia": "quinta-feira",
+                  "inicio" : "09:00",
+                  "termino" : "11:00"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
