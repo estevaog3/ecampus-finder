@@ -1,4 +1,4 @@
-module.exports = function (curso) {
+function formatCourse(curso) {
   let disciplinas = [];
   let disciplina, turma;
   let lookingFor = "disciplina";
@@ -94,4 +94,91 @@ module.exports = function (curso) {
   let cursoCopy = JSON.parse(JSON.stringify(curso));
   cursoCopy.disciplinas = disciplinas;
   return cursoCopy;
+}
+
+function parseTimeOfDayToMinutesTimestamp(timeOfDay) {
+  let hourAndMinute = timeOfDay.split(":");
+  return parseInt(hourAndMinute[0], 10) * 60 + parseInt(hourAndMinute[1], 10);
+}
+
+function parseHorarios(_horarios) {
+  if (_horarios.length === 0) {
+    return {};
+  }
+  let inicioTimestamp = parseTimeOfDayToMinutesTimestamp(_horarios[0].inicio);
+  let terminoTimestamp = parseTimeOfDayToMinutesTimestamp(_horarios[0].termino);
+  let horarios = [
+    {
+      dias: [_horarios[0].dia],
+      inicio: _horarios[0].inicio,
+      termino: _horarios[0].termino,
+    },
+  ];
+  let repeatedInicios = {};
+  let repeatedTerminos = {};
+  repeatedInicios[_horarios[0].inicio] = true;
+  repeatedTerminos[_horarios[0].termino] = true;
+  let current = 0;
+  for (let i = 1; i < _horarios.length; i++) {
+    let horario = _horarios[i];
+    if (
+      repeatedInicios[horario.inicio] === undefined ||
+      repeatedTerminos[horario.termino] === undefined
+    ) {
+      repeatedInicios[horario.inicio] = true;
+      repeatedTerminos[horario.termino] = true;
+      inicioTimestamp = Math.min(
+        inicioTimestamp,
+        parseTimeOfDayToMinutesTimestamp(horario.inicio)
+      );
+      terminoTimestamp = Math.max(
+        terminoTimestamp,
+        parseTimeOfDayToMinutesTimestamp(horario.termino)
+      );
+      horarios.push({
+        dias: [horario.dia],
+        inicio: horario.inicio,
+        termino: horario.termino,
+      });
+      current++;
+    } else {
+      horarios[current].dias.push(horario.dia);
+    }
+  }
+  return { horarios, inicioTimestamp, terminoTimestamp };
+}
+
+function getClasses(course) {
+  let turmas = [];
+  for (let disciplina of course.disciplinas) {
+    for (let turma of disciplina.turmas) {
+      let outputTurma = {
+        id: this.classId,
+        codigo: turma.codigo,
+        curso: { nome: course.nome, codigo: course.codigo },
+        disciplina: { nome: disciplina.nome, codigo: disciplina.codigo },
+        concorrencia:
+          parseInt(turma.numeroDeSolicitacoes, 10) /
+          parseInt(turma.numeroDeVagas, 10),
+        ...parseHorarios(turma.horarios),
+      };
+      turmas.push(outputTurma);
+      this.classId++;
+    }
+  }
+
+  return turmas;
+}
+
+const CourseFormater = {
+  init() {
+    this.classId = 0;
+  },
+  parseClasses(course) {
+    // let courseFormated = formatCourse(course);
+    // return getClasses(courseFormated);
+    return getClasses.call(this, course);
+  },
 };
+
+module.exports = CourseFormater;

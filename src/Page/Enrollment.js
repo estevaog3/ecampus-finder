@@ -1,5 +1,5 @@
 const Login = require("./Login.js");
-const formatCourse = require("../util/courseFormater.js");
+const CourseFormater = require("../util/courseFormater.js");
 
 const Enrollment = Object.create(Login);
 
@@ -90,18 +90,22 @@ Enrollment.scrapeAllCourses = async function () {
   if (!this.isAtEnrollmentPage) {
     await this.open();
   }
-  let courses = [];
+  let classes = [];
+  CourseFormater.init();
   for (let i = 1; i < this.numberOfCourses; i++) {
     console.log("begin", i);
     try {
       let course = await this.scrapeCourse(i);
-      courses.push(formatCourse(course));
+      let newClasses = CourseFormater.parseClasses(course);
+      for (newClass of newClasses) {
+        classes.push(newClasse);
+      }
     } catch (e) {
       console.error(e);
     }
   }
 
-  return courses;
+  return classes;
 };
 
 module.exports = Enrollment;
