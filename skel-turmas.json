@@ -10,8 +10,6 @@
       "nome": "TEORIA DE ADMINISTRACÃO I",
       "codigo": "FAA122"
     },
-    "numeroDeVagas": 60,
-    "numeroDeSolicitacoes": 33,
     "concorrencia": 0.55,
     "inicioTimestamp": 660,
     "terminoTimestamp": 900,
@@ -39,8 +37,6 @@
       "nome": "TEORIA DE ADMINISTRACÃO II",
       "codigo": "FAA124"
     },
-    "numeroDeVagas": 60,
-    "numeroDeSolicitacoes": 33,
     "concorrencia": 0.55,
     "inicioTimestamp": 600,
     "terminoTimestamp": 720,
@@ -68,8 +64,6 @@
       "nome": "COMPUTACAO GRAFICA",
       "codigo": "FAA122"
     },
-    "numeroDeVagas": "40",
-    "numeroDeSolicitacoes": "50",
     "concorrencia": 1.25,
     "inicioTimestamp": 480,
     "terminoTimestamp": 720,
