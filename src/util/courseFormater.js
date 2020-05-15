@@ -1,4 +1,4 @@
-module.formatCourse = function (curso) {
+module.exports = function (curso) {
   let disciplinas = [];
   let disciplina, turma;
   let lookingFor = "disciplina";

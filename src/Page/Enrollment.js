@@ -1,5 +1,5 @@
 const Login = require("./Login.js");
-const { formatCourse } = require("../util/courseFormater.js");
+const formatCourse = require("../util/courseFormater.js");
 
 const Enrollment = Object.create(Login);
 
