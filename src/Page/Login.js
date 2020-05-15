@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+const puppeteer = require("puppeteer");
 
 const Login = {
   url: "https://ecampus.ufam.edu.br/ecampus/home/login",
@@ -31,4 +31,4 @@ const Login = {
   },
 };
 
-export default Login;
+module.exports = Login;

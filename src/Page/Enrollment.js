@@ -1,5 +1,5 @@
-import Login from "./Login.js";
-import formatCourse from "../util/courseFormater.js";
+const Login = require("./Login.js");
+const { formatCourse } = require("../util/courseFormater.js");
 
 const Enrollment = Object.create(Login);
 
@@ -108,4 +108,4 @@ Enrollment.scrapeAllCourses = async function () {
   return courses;
 };
 
-export default Enrollment;
+module.exports = Enrollment;

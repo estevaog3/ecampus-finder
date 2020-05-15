@@ -1,4 +1,4 @@
-export default function formatCourse(curso) {
+module.formatCourse = function (curso) {
   let disciplinas = [];
   let disciplina, turma;
   let lookingFor = "disciplina";
@@ -94,4 +94,4 @@ export default function formatCourse(curso) {
   let cursoCopy = JSON.parse(JSON.stringify(curso));
   cursoCopy.disciplinas = disciplinas;
   return cursoCopy;
-}
+};
