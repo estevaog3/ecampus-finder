@@ -3,14 +3,11 @@ const { formatCourse } = require("../util/courseFormater.js");
 
 const Enrollment = Object.create(Login);
 
-Enrollment.homeUrl = "https://ecampus.ufam.edu.br/ecampus/home/index";
-
 Enrollment.open = async function () {
   if (!this.isLogged) {
     console.error("User must be loged in to open Enrollment Page");
     return;
   }
-  await this.page.goto(this.homeUrl);
   await this.page.waitFor('a[title="Aluno"]');
   await this.page.click('a[title="Aluno"]');
   await this.page.waitFor("#panel-menu > :nth-child(2) > :nth-child(3)");
@@ -19,7 +16,6 @@ Enrollment.open = async function () {
   await this.page.waitFor(
     "#panel-menu > :nth-child(2) > :nth-child(4) > :nth-child(1)"
   );
-  // await this.page.screenshot();
   // clica no botão de solicitação de matrícula:
   await this.page.click(
     "#panel-menu > :nth-child(2) > :nth-child(4) > :nth-child(1)"
