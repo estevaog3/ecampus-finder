@@ -45,9 +45,9 @@ Enrollment.selectCourse = async function (index) {
 };
 
 Enrollment.scrapeCourse = async function (index) {
-  this.selectCourse(index);
-  await page.click("#buscar-por-curso");
-  await page.waitFor("#grid-turmas-outros");
+  await this.selectCourse(index);
+  await this.page.click("#buscar-por-curso");
+  await this.page.waitFor("#grid-turmas-outros");
   return await this.page.evaluate(() => {
     let data = {};
     //get código e nome da disciplina
@@ -88,7 +88,7 @@ Enrollment.scrapeCourse = async function (index) {
 
 Enrollment.scrapeAllCourses = async function () {
   if (!this.isAtEnrollmentPage) {
-    this.open();
+    await this.open();
   }
   let courses = [];
   for (let i = 1; i < this.numberOfCourses; i++) {

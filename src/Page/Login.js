@@ -16,9 +16,10 @@ const Login = {
 
   async signIn(username, password) {
     if (!this.page) {
-      this.init();
+      await this.init();
     }
     await this.page.goto(this.url);
+    await this.page.waitFor("input#usuario");
     await this.page.type("input#usuario", username);
     await this.page.type("input#senha", password);
     await this.page.click("input#enviar");
