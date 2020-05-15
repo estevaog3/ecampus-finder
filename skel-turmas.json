@@ -1,8 +1,15 @@
 [
   {
     "id": 0,
-    "curso": { "nome": "Administração (Matutino)", "codigo": "FA01" },
-    "disciplina": "TEORIA DE ADMINISTRACÃO I",
+    "codigo": "1",
+    "curso": {
+      "nome": "Administração (Matutino)",
+      "codigo": "FA01"
+    },
+    "disciplina": {
+      "nome": "TEORIA DE ADMINISTRACÃO I",
+      "codigo": "FAA122"
+    },
     "numeroDeVagas": 60,
     "numeroDeSolicitacoes": 33,
     "concorrencia": 0.55,
@@ -23,8 +30,15 @@
   },
   {
     "id": 1,
-    "curso": { "nome": "Administração (Matutino)", "codigo": "FA01" },
-    "disciplina": "TEORIA DE ADMINISTRACÃO II",
+    "codigo": "2",
+    "curso": {
+      "nome": "Administração (Matutino)",
+      "codigo": "FA01"
+    },
+    "disciplina": {
+      "nome": "TEORIA DE ADMINISTRACÃO II",
+      "codigo": "FAA124"
+    },
     "numeroDeVagas": 60,
     "numeroDeSolicitacoes": 33,
     "concorrencia": 0.55,
@@ -45,8 +59,15 @@
   },
   {
     "id": 2,
-    "curso": { "nome": "Ciência da Computação (Diurno)", "codigo": "FA01" },
-    "disciplina": "COMPUTACAO GRAFICA",
+    "codigo": "3",
+    "curso": {
+      "nome": "Ciência da Computação (Diurno)",
+      "codigo": "FA01"
+    },
+    "disciplina": {
+      "nome": "COMPUTACAO GRAFICA",
+      "codigo": "FAA122"
+    },
     "numeroDeVagas": "40",
     "numeroDeSolicitacoes": "50",
     "concorrencia": 1.25,
