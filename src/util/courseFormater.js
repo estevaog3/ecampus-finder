@@ -159,6 +159,7 @@ function getClasses(course) {
         codigo: turma.codigo,
         curso: { nome: course.nome, codigo: course.codigo },
         disciplina: { nome: disciplina.nome, codigo: disciplina.codigo },
+        // this attribute might be null if 'turma.numeroDeVagas' == 0
         concorrencia:
           parseInt(turma.numeroDeSolicitacoes, 10) /
           parseInt(turma.numeroDeVagas, 10),
