@@ -1,5 +1,5 @@
-const CourseFormater = require("../util/courseFormater.js");
-const formatedCourses = require("../../dev-courses.json");
+const CourseFormater = require("../src/util/courseFormater.js");
+const formatedCourses = require("../dev-courses.json");
 const fs = require("fs-extra");
 
 let classes = [];
