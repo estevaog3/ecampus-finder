@@ -151,9 +151,11 @@ function parseHorarios(_horarios) {
 function getClasses(course) {
   let turmas = [];
   for (let disciplina of course.disciplinas) {
+    let turmaIndex = 0;
     for (let turma of disciplina.turmas) {
       let outputTurma = {
         id: this.classId,
+        index: turmaIndex,
         codigo: turma.codigo,
         curso: { nome: course.nome, codigo: course.codigo },
         disciplina: { nome: disciplina.nome, codigo: disciplina.codigo },
@@ -164,6 +166,7 @@ function getClasses(course) {
       };
       turmas.push(outputTurma);
       this.classId++;
+      turmaIndex++;
     }
   }
 
