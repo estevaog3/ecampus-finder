@@ -1,7 +1,7 @@
 {
-  "name": "ecampus-scrapper",
+  "name": "ecampus-finder-backend",
   "version": "1.0.0",
-  "description": "Um scrapper para extrair dados de disciplinas de outros cursos na solicação de matrícula da UFAM",
+  "description": "Um scraper que extrai dados de turmas de outros cursos na 2º solicação de matrícula da UFAM e um backend para servir esses dados",
   "main": "/src/main.js",
   "author": "Estevão Costa",
   "license": "ISC",
