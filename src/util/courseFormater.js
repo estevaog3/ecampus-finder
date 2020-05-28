@@ -175,9 +175,8 @@ const CourseFormater = {
     this.classId = 0;
   },
   parseClasses(course) {
-    // let courseFormated = formatCourse(course);
-    // return getClasses(courseFormated);
-    return getClasses.call(this, course);
+    const courseFormated = formatCourse(course);
+    return getClasses.call(this, courseFormated);
   },
 };
 
