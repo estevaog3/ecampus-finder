@@ -174,9 +174,13 @@ const CourseFormater = {
   init() {
     this.classId = 0;
   },
-  parseClasses(course) {
-    const courseFormated = formatCourse(course);
-    return getClasses.call(this, courseFormated);
+  parseClasses(course, { isFormated }) {
+    if (isFormated) {
+      return getClasses.call(this, course);
+    } else {
+      const courseFormated = formatCourse(course);
+      return getClasses.call(this, courseFormated);
+    }
   },
 };
 
