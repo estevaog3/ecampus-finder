@@ -9,6 +9,7 @@ const Enrollment = require("./Page/Enrollment.js");
   let courses;
   try {
     await Enrollment.signIn(username, password);
+    console.log("signIn passed");
     courses = await Enrollment.scrapeAllCourses();
   } catch (e) {
     console.error("ERROR!\n", e);

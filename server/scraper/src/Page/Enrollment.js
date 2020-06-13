@@ -16,6 +16,7 @@ Enrollment.open = async function () {
   await this.page.waitFor(
     "#panel-menu > :nth-child(2) > :nth-child(4) > :nth-child(1)"
   );
+
   // clica no botão de solicitação de matrícula:
   await this.page.click(
     "#panel-menu > :nth-child(2) > :nth-child(4) > :nth-child(1)"
