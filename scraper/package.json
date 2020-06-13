@@ -6,7 +6,6 @@
   "author": "Estevão Costa",
   "license": "ISC",
   "dependencies": {
-    "fs-extra": "^8.1.0",
     "puppeteer": "^2.1.1"
   },
   "devDependencies": {

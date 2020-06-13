@@ -1,5 +1,5 @@
 require("dotenv").config();
-const fs = require("fs-extra");
+const fs = require("fs");
 const Enrollment = require("./Page/Enrollment.js");
 
 (async () => {

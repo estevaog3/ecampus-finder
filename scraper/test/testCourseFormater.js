@@ -1,6 +1,6 @@
 const CourseFormater = require("../src/util/courseFormater.js");
 const formatedCourses = require("../dev-courses.json");
-const fs = require("fs-extra");
+const fs = require("fs");
 
 let classes = [];
 CourseFormater.init();
