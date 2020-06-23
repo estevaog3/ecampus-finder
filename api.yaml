@@ -1,0 +1,104 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Ecampus Finder API
+  description: Uma API para realizar buscas sobre turmas da 2ª solicitação de matrícula da UFAM
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: /v1
+paths:
+  /search:
+    get:
+      description: Buscar disciplinas, turmas e/ou horários
+      operationId: searchClasses
+      parameters: 
+        - name: q
+          in: query
+          required: true
+          description: consulta para fazer
+          example: "Fotografia 16:00"
+          schema:
+            type: string
+            # TODO: add a secure pattern that allows for letters, numbers and accented characters
+      responses:
+        '200':
+          description: resultados da busca
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hit'
+        default:
+          description: Erro inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Hit:
+      required:
+        - codigo
+        - curso
+        - disciplina
+        - horarios
+      properties:
+        codigo:
+          type: string
+          example: "1"
+        curso:
+          type: object
+          properties:
+            nome:
+              type: string
+              example: "Engenharia da Computação (Diurno)"
+            codigo:
+              type: string
+              example: "FO05"
+        disciplina:
+          type: object
+          properties:
+            nome:
+              type: string
+              example: "EQUACÕES DIFERENCIAIS ORDINÁRIAS"
+            codigo:
+              type: string
+              example: "IEM141"
+        horarios:
+          type: array
+          items:
+            type: object
+            properties:
+              dias:
+                type: array
+                items:
+                  type: string
+                  example: "Terça-feira"
+              inicio:
+                type: string
+                example: "08:00"
+              termino:
+                type: string
+                example: "10:00"
+            
+        concorrencia:
+          type: number
+          format: float
+          description: relação de candidatos por vaga
+          example: 0.75
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+          
+          
