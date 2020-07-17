@@ -81,22 +81,22 @@ paths:
                   type: string
                   pattern: ^(seg|ter|qua|qui|sex|sab)$
                   maxItems: 168
-
       responses:
-        '200':
-          description: resultados da busca
+        "200":
+          description: Resultados da busca
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Hit'
+                  $ref: "#/components/schemas/Hit"
+                maxLength: 20
         default:
           description: Erro inesperado
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Hit:
