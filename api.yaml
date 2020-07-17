@@ -12,17 +12,72 @@ servers:
 paths:
   /search:
     get:
-      description: Buscar disciplinas, turmas e/ou horários
+      description: Buscar por disciplinas, turmas ou cursos
       operationId: searchClasses
-      parameters: 
-        - name: q
+      parameters:
+        - name: query
           in: query
           required: true
-          description: consulta para fazer
+          description: Consulta para fazer
           example: "Fotografia 16:00"
           schema:
             type: string
-            # TODO: add a secure pattern that allows for letters, numbers and accented characters
+        - name: limit
+          in: query
+          required: true
+          description: Número máximo de resultados para retornar
+          example: 10
+          schema:
+            type: integer
+            maximum: 20
+            minimum: 1
+        - name: offset
+          in: query
+          description: Número de resultados que serão pulados na busca
+          example: 60
+          schema:
+            type: integer
+            maximum: 10000
+            minimum: 0
+        - name: sort
+          in: query
+          description: Forma de ordenação
+          example: asc:concorrencia
+          schema:
+            type: string
+            pattern: ^(asc|desc):(concorrencia|cursoNome|disciplinaNome)$
+        - name: filter
+          in: query
+          description: Dias e horários para filtrar
+          schema:
+            type: object
+            required: 
+            - startTimestampsMin
+            - endTimestampsMin
+            - days
+            properties:
+              startTimestampsMin:
+                example: [500, 950]
+                type: array
+                items:
+                  # Pode haver no máximo 24 horários disponíveis para seleção em um único dia. 
+                  # Portanto, em uma semana há no máximo 24 * 7 = 168 horários.
+                  maxItems: 168
+                  type: integer
+              endTimestampsMin:
+                example: [600, 1000]
+                type: array
+                items:
+                  maxItems: 168 
+                  type: integer
+              days:
+                type: array
+                example: ["seg", "ter"]
+                items:
+                  type: string
+                  pattern: ^(seg|ter|qua|qui|sex|sab)$
+                  maxItems: 168
+
       responses:
         '200':
           description: resultados da busca
