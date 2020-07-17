@@ -64,12 +64,16 @@ paths:
                   # Portanto, em uma semana há no máximo 24 * 7 = 168 horários.
                   maxItems: 168
                   type: integer
+                  minimum: 1
+                  maximum: 1440
               endTimestampsMin:
                 example: [600, 1000]
                 type: array
                 items:
                   maxItems: 168 
                   type: integer
+                  minimum: 1
+                  maximum: 1440 
               days:
                 type: array
                 example: ["seg", "ter"]
@@ -155,5 +159,3 @@ components:
           format: int32
         message:
           type: string
-          
-          
