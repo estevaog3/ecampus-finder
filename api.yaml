@@ -140,10 +140,11 @@ components:
               inicio:
                 type: string
                 example: "08:00"
+                pattern: ^[0-9]{1,2}:[0-9]{1,2}$
               termino:
                 type: string
                 example: "10:00"
-            
+                pattern: ^[0-9]{1,2}:[0-9]{1,2}$
         concorrencia:
           type: number
           format: float
