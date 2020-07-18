@@ -1,19 +1,20 @@
 function formatCourse(curso) {
-  let disciplinas = [];
-  let disciplina, turma;
-  let lookingFor = "disciplina";
+  const disciplinas = [];
+  let disciplina;
+  let turma;
+  let lookingFor = 'disciplina';
 
   function assertLength(array, len, msg) {
     if (array.length !== len) {
-      console.log(msg, "expected length == ", len, ", got:", array.length);
-      console.log("array:", array);
+      console.log(msg, 'expected length == ', len, ', got:', array.length);
+      console.log('array:', array);
       return false;
     }
     return true;
   }
 
   for (let i = 1; i < curso.disciplinas.length; i++) {
-    if (lookingFor === "disciplina") {
+    if (lookingFor === 'disciplina') {
       if (
         assertLength(curso.disciplinas[i], 2, `[looking for ${lookingFor}] `) ==
         false
@@ -23,10 +24,10 @@ function formatCourse(curso) {
       disciplina = {};
       disciplina.codigo = curso.disciplinas[i][0];
       disciplina.nome = curso.disciplinas[i][1];
-      lookingFor = "turma";
+      lookingFor = 'turma';
       disciplina.turmas = [];
       i++;
-    } else if (lookingFor === "turma") {
+    } else if (lookingFor === 'turma') {
       if (
         assertLength(curso.disciplinas[i], 3, `[looking for ${lookingFor}] `) ==
         false
@@ -38,47 +39,47 @@ function formatCourse(curso) {
       turma.numeroDeVagas = curso.disciplinas[i][1];
       turma.numeroDeSolicitacoes = curso.disciplinas[i][2];
 
-      lookingFor = "horarios";
+      lookingFor = 'horarios';
       turma.horarios = [];
-      i = i + 2;
-    } else if (lookingFor === "horarios") {
+      i += 2;
+    } else if (lookingFor === 'horarios') {
       if (
         curso.disciplinas[i].length === 1 &&
-        curso.disciplinas[i][0].match("^(N|n)enhum")
+        curso.disciplinas[i][0].match('^(N|n)enhum')
       ) {
         // turma corrente está sem horário
-        let copy = JSON.parse(JSON.stringify(turma));
+        const copy = JSON.parse(JSON.stringify(turma));
         disciplina.turmas.push(copy);
         if (
           i + 1 < curso.disciplinas.length &&
           curso.disciplinas[i + 1].length === 2
         ) {
-          lookingFor = "disciplina";
+          lookingFor = 'disciplina';
         } else {
-          lookingFor = "turma";
+          lookingFor = 'turma';
         }
       } else if (
         curso.disciplinas[i].length === 3 &&
-        curso.disciplinas[i][2].split(":").length === 1
+        curso.disciplinas[i][2].split(':').length === 1
       ) {
         // atual é turma
-        let copy = JSON.parse(JSON.stringify(turma));
+        const copy = JSON.parse(JSON.stringify(turma));
         disciplina.turmas.push(copy);
-        lookingFor = "turma";
+        lookingFor = 'turma';
         i--;
       } else if (curso.disciplinas[i].length === 2) {
-        //atual é disciplina
+        // atual é disciplina
         disciplina.turmas.push(turma);
-        let copy = JSON.parse(JSON.stringify(disciplina));
+        const copy = JSON.parse(JSON.stringify(disciplina));
         disciplinas.push(copy);
-        lookingFor = "disciplina";
+        lookingFor = 'disciplina';
         i--;
       } else {
         if (
           assertLength(
             curso.disciplinas[i],
             3,
-            `[looking for ${lookingFor}] `
+            `[looking for ${lookingFor}] `,
           ) == false
         ) {
           return {};
@@ -91,13 +92,13 @@ function formatCourse(curso) {
       }
     }
   }
-  let cursoCopy = JSON.parse(JSON.stringify(curso));
+  const cursoCopy = JSON.parse(JSON.stringify(curso));
   cursoCopy.disciplinas = disciplinas;
   return cursoCopy;
 }
 
 function parseTimeOfDayToMinutesTimestamp(timeOfDay) {
-  let hourAndMinute = timeOfDay.split(":");
+  const hourAndMinute = timeOfDay.split(':');
   return parseInt(hourAndMinute[0], 10) * 60 + parseInt(hourAndMinute[1], 10);
 }
 
@@ -107,20 +108,20 @@ function parseHorarios(_horarios) {
   }
   let inicioTimestamp = parseTimeOfDayToMinutesTimestamp(_horarios[0].inicio);
   let terminoTimestamp = parseTimeOfDayToMinutesTimestamp(_horarios[0].termino);
-  let horarios = [
+  const horarios = [
     {
       dias: [_horarios[0].dia],
       inicio: _horarios[0].inicio,
       termino: _horarios[0].termino,
     },
   ];
-  let repeatedInicios = {};
-  let repeatedTerminos = {};
+  const repeatedInicios = {};
+  const repeatedTerminos = {};
   repeatedInicios[_horarios[0].inicio] = true;
   repeatedTerminos[_horarios[0].termino] = true;
   let current = 0;
   for (let i = 1; i < _horarios.length; i++) {
-    let horario = _horarios[i];
+    const horario = _horarios[i];
     if (
       repeatedInicios[horario.inicio] === undefined ||
       repeatedTerminos[horario.termino] === undefined
@@ -129,11 +130,11 @@ function parseHorarios(_horarios) {
       repeatedTerminos[horario.termino] = true;
       inicioTimestamp = Math.min(
         inicioTimestamp,
-        parseTimeOfDayToMinutesTimestamp(horario.inicio)
+        parseTimeOfDayToMinutesTimestamp(horario.inicio),
       );
       terminoTimestamp = Math.max(
         terminoTimestamp,
-        parseTimeOfDayToMinutesTimestamp(horario.termino)
+        parseTimeOfDayToMinutesTimestamp(horario.termino),
       );
       horarios.push({
         dias: [horario.dia],
@@ -149,11 +150,11 @@ function parseHorarios(_horarios) {
 }
 
 function getClasses(course) {
-  let turmas = [];
-  for (let disciplina of course.disciplinas) {
+  const turmas = [];
+  for (const disciplina of course.disciplinas) {
     let turmaIndex = 0;
-    for (let turma of disciplina.turmas) {
-      let outputTurma = {
+    for (const turma of disciplina.turmas) {
+      const outputTurma = {
         id: this.classId,
         index: turmaIndex,
         codigo: turma.codigo,
@@ -181,10 +182,9 @@ const CourseFormater = {
   parseClasses(course, { isFormated }) {
     if (isFormated) {
       return getClasses.call(this, course);
-    } else {
-      const courseFormated = formatCourse(course);
-      return getClasses.call(this, courseFormated);
     }
+    const courseFormated = formatCourse(course);
+    return getClasses.call(this, courseFormated);
   },
 };
 

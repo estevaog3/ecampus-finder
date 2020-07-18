@@ -1,4 +1,4 @@
-openapi: "3.0.0"
+openapi: '3.0.0'
 info:
   version: 1.0.0
   title: Ecampus Finder API
@@ -19,7 +19,7 @@ paths:
           in: query
           required: true
           description: Consulta para fazer
-          example: "Fotografia 16:00"
+          example: 'Fotografia 16:00'
           schema:
             type: string
         - name: limit
@@ -51,16 +51,16 @@ paths:
           description: Dias e horários para filtrar
           schema:
             type: object
-            required: 
-            - startTimestampsMin
-            - endTimestampsMin
-            - days
+            required:
+              - startTimestampsMin
+              - endTimestampsMin
+              - days
             properties:
               startTimestampsMin:
                 example: [500, 950]
                 type: array
                 items:
-                  # Pode haver no máximo 24 horários disponíveis para seleção em um único dia. 
+                  # Pode haver no máximo 24 horários disponíveis para seleção em um único dia.
                   # Portanto, em uma semana há no máximo 24 * 7 = 168 horários.
                   maxItems: 168
                   type: integer
@@ -70,33 +70,33 @@ paths:
                 example: [600, 1000]
                 type: array
                 items:
-                  maxItems: 168 
+                  maxItems: 168
                   type: integer
                   minimum: 1
-                  maximum: 1440 
+                  maximum: 1440
               days:
                 type: array
-                example: ["seg", "ter"]
+                example: ['seg', 'ter']
                 items:
                   type: string
                   pattern: ^(seg|ter|qua|qui|sex|sab)$
                   maxItems: 168
       responses:
-        "200":
+        '200':
           description: Resultados da busca
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Hit"
+                  $ref: '#/components/schemas/Hit'
                 maxLength: 20
         default:
           description: Erro inesperado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     Hit:
@@ -108,25 +108,25 @@ components:
       properties:
         codigo:
           type: string
-          example: "1"
+          example: '1'
         curso:
           type: object
           properties:
             nome:
               type: string
-              example: "Engenharia da Computação (Diurno)"
+              example: 'Engenharia da Computação (Diurno)'
             codigo:
               type: string
-              example: "FO05"
+              example: 'FO05'
         disciplina:
           type: object
           properties:
             nome:
               type: string
-              example: "EQUACÕES DIFERENCIAIS ORDINÁRIAS"
+              example: 'EQUACÕES DIFERENCIAIS ORDINÁRIAS'
             codigo:
               type: string
-              example: "IEM141"
+              example: 'IEM141'
         horarios:
           type: array
           items:
@@ -136,14 +136,14 @@ components:
                 type: array
                 items:
                   type: string
-                  example: "Terça-feira"
+                  example: 'Terça-feira'
               inicio:
                 type: string
-                example: "08:00"
+                example: '08:00'
                 pattern: ^[0-9]{1,2}:[0-9]{1,2}$
               termino:
                 type: string
-                example: "10:00"
+                example: '10:00'
                 pattern: ^[0-9]{1,2}:[0-9]{1,2}$
         concorrencia:
           type: number
