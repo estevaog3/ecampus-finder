@@ -1,6 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const Enrollment = require('./Page/Enrollment.js');
+const searchClient = require('../../services/searchClient');
 
 (async () => {
   const username = process.env.USUARIO;
@@ -15,5 +16,6 @@ const Enrollment = require('./Page/Enrollment.js');
     console.error('ERROR!\n', e);
   }
   fs.writeJson(outputFile, courses);
+  searchClient.indexAll(courses);
   await Enrollment.close();
 })();
