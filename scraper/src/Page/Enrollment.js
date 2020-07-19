@@ -59,9 +59,11 @@ Enrollment.scrapeCourse = async function (index) {
 
     const table = document.getElementById('grid-turmas-outros');
 
-    function HTMLTableToArray(element, withHeader) {
-      element =
-        typeof element === 'string' ? document.querySelector(element) : element;
+    function HTMLTableToArray(_element, withHeader) {
+      const element =
+        typeof _element === 'string'
+          ? document.querySelector(_element)
+          : _element;
       const a = [];
       const rows = element.querySelectorAll('tr');
       for (let i = 0; i < rows.length; i++) {
