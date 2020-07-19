@@ -1,11 +1,11 @@
 const Login = require('./Login.js');
-const CourseFormater = require('../util/courseFormater.js');
+const CourseFormatter = require('../util/courseFormatter.js');
 
 const Enrollment = Object.create(Login);
 
 Enrollment.open = async function () {
   if (!this.isLogged) {
-    console.error('User must be loged in to open Enrollment Page');
+    console.error('User must be logged in to open Enrollment Page');
     return;
   }
   await this.page.waitFor('a[title="Aluno"]');
@@ -94,12 +94,12 @@ Enrollment.scrapeAllCourses = async function () {
     await this.open();
   }
   const classes = [];
-  CourseFormater.init();
+  CourseFormatter.init();
   for (let i = 1; i < this.numberOfCourses; i++) {
     console.log('begin', i);
     try {
       const course = await this.scrapeCourse(i);
-      const newClasses = CourseFormater.parseClasses(course);
+      const newClasses = CourseFormatter.parseClasses(course);
       for (newClass of newClasses) {
         classes.push(newClasse);
       }

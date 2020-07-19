@@ -175,17 +175,17 @@ function getClasses(course) {
   return turmas;
 }
 
-const CourseFormater = {
+const CourseFormatter = {
   init() {
     this.classId = 0;
   },
-  parseClasses(course, { isFormated }) {
-    if (isFormated) {
+  parseClasses(course, { isFormatted }) {
+    if (isFormatted) {
       return getClasses.call(this, course);
     }
-    const courseFormated = formatCourse(course);
-    return getClasses.call(this, courseFormated);
+    const courseFormatted = formatCourse(course);
+    return getClasses.call(this, courseFormatted);
   },
 };
 
-module.exports = CourseFormater;
+module.exports = CourseFormatter;
