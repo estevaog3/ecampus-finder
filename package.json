@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "scrape": "node ./scraper/src/main.js"
+    "scrape": "node ./scraper/src/main.js",
+    "mock": "prism mock -d api.yaml"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.8.0",
@@ -16,6 +17,7 @@
     "puppeteer": "^3.3.0"
   },
   "devDependencies": {
+    "@stoplight/prism-cli": "^3.3.6",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
