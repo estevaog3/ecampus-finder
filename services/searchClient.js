@@ -40,13 +40,13 @@ exports.indexAll = async function indexAll(records, index) {
 exports.init = async function init(index) {
   try {
     const indexExists = await client.indices.exists({ index });
-    if (indexExists) {
+    if (indexExists.body === true) {
       return;
     }
 
     await client.indices.create({
       index,
-      body: JSON.parse(config),
+      body: config,
     });
   } catch (e) {
     console.log('searchClient init: failed to init:', e);
