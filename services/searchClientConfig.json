@@ -91,9 +91,6 @@
       "id": {
         "type": "integer"
       },
-      "index": {
-        "type": "integer"
-      },
       "inicioTimestamp": {
         "type": "integer"
       },
