@@ -20,6 +20,7 @@ async function scrapeAndSave() {
     console.error('ERROR!\n', e);
   }
   fs.writeJson(outputFile, courses);
+  searchClient.init(index);
   searchClient.indexAll(courses, index);
   await Enrollment.close();
 }
@@ -31,6 +32,7 @@ function loadAndSave() {
   if (!index || !inputFile || !courses) {
     throw Error('index, inputFile or courses is undefined');
   }
+  searchClient.init(index);
   searchClient.indexAll(courses, index);
 }
 

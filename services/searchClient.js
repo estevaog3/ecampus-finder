@@ -1,5 +1,6 @@
 const { Client } = require('@elastic/elasticsearch');
 const { BULK_TIMEOUT } = require('../constants');
+const config = require('./searchClientConfig.json');
 
 const client = new Client({ node: 'http://localhost:9200' });
 
@@ -33,5 +34,22 @@ exports.indexAll = async function indexAll(records, index) {
     });
   } catch (e) {
     console.log(e.message);
+  }
+};
+
+exports.init = async function init(index) {
+  try {
+    const indexExists = await client.indices.exists({ index });
+    if (indexExists) {
+      return;
+    }
+
+    await client.indices.create({
+      index,
+      body: JSON.parse(config),
+    });
+  } catch (e) {
+    console.log('searchClient init: failed to init:', e);
+    process.exit(1);
   }
 };
