@@ -1,5 +1,5 @@
 const { Client } = require('@elastic/elasticsearch');
-const { BULK_TIMEOUT } = require('../constants');
+const { BULK_TIMEOUT, SEARCH_TIMEOUT } = require('../constants');
 const config = require('./searchClientConfig.json');
 
 const client = new Client({ node: 'http://localhost:9200' });
@@ -51,5 +51,34 @@ exports.init = async function init(index) {
   } catch (e) {
     console.log('searchClient init: failed to init:', e);
     process.exit(1);
+  }
+};
+
+exports.query = async function query(
+  index,
+  queryString,
+  limit,
+  offset,
+  sort,
+  filter,
+) {
+  // TODO: adicionar o filtro na busca
+  try {
+    const { body } = await client.search({
+      index,
+      size: limit,
+      from: offset,
+      timeout: SEARCH_TIMEOUT,
+      sort,
+      body: {
+        query: {
+          multi_match: { query: queryString },
+        },
+      },
+    });
+    return body.hits.hits;
+  } catch (e) {
+    console.log('searchClient query failed:', e);
+    return undefined;
   }
 };
