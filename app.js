@@ -6,7 +6,6 @@ const { OpenApiValidator } = require('express-openapi-validator');
 const routes = require('./routes');
 
 const apiSpec = path.join(__dirname, 'api.yaml');
-console.log(apiSpec);
 
 const app = express();
 app.use(logger('dev'));
