@@ -9,6 +9,7 @@ const apiSpec = path.join(__dirname, 'api.yaml');
 
 const app = express();
 app.use(logger('dev'));
+app.use(express.json());
 
 new OpenApiValidator({
   apiSpec,
