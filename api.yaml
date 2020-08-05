@@ -47,41 +47,47 @@ paths:
             type: string
             pattern: ^(asc|desc):(concorrencia|cursoNome|disciplinaNome)$
       requestBody:
+        required: true
         description: Dias e horários para filtrar
         content:
           application/json:
             schema:
               type: object
               required:
-                - startTimestampsMin
-                - endTimestampsMin
-                - days
+                - filter
               properties:
-                startTimestampsMin:
-                  example: [500, 950]
-                  type: array
-                  items:
-                    # Pode haver no máximo 24 horários disponíveis para seleção em um único dia.
-                    # Portanto, em uma semana há no máximo 24 * 7 = 168 horários.
-                    maxItems: 168
-                    type: integer
-                    minimum: 1
-                    maximum: 1440
-                endTimestampsMin:
-                  example: [600, 1000]
-                  type: array
-                  items:
-                    maxItems: 168
-                    type: integer
-                    minimum: 1
-                    maximum: 1440
-                days:
-                  type: array
-                  example: ['seg', 'ter']
-                  items:
-                    type: string
-                    pattern: ^(seg|ter|qua|qui|sex|sab)$
-                    maxItems: 168
+                filter:
+                  type: object
+                  required:
+                    - startTimestampsMin
+                    - endTimestampsMin
+                    - days
+                  properties:
+                    startTimestampsMin:
+                      example: [500, 950]
+                      type: array
+                      items:
+                        # Pode haver no máximo 24 horários disponíveis para seleção em um único dia.
+                        # Portanto, em uma semana há no máximo 24 * 7 = 168 horários.
+                        maxItems: 168
+                        type: integer
+                        minimum: 1
+                        maximum: 1440
+                    endTimestampsMin:
+                      example: [600, 1000]
+                      type: array
+                      items:
+                        maxItems: 168
+                        type: integer
+                        minimum: 1
+                        maximum: 1440
+                    days:
+                      type: array
+                      example: ['seg', 'ter']
+                      items:
+                        type: string
+                        pattern: ^(seg|ter|qua|qui|sex|sab)$
+                        maxItems: 168
       responses:
         '200':
           description: Resultados da busca
