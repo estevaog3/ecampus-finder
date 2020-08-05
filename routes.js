@@ -25,7 +25,17 @@ router.post('/search', async (req, res) => {
     res.status(500).send({ message: 'Search failed' });
     return;
   }
-  res.json(hits);
+  res.json(
+    hits.map((hit) => {
+      return {
+        curso: hit._source.curso,
+        disciplina: hit._source.disciplina,
+        codigo: hit._source.codigo,
+        concorrencia: hit._source.concorrencia,
+        horarios: hit._source.horarios,
+      };
+    }),
+  );
 });
 
 module.exports = router;
