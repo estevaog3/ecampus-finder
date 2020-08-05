@@ -22,7 +22,7 @@ router.post('/search', async (req, res) => {
     filter,
   );
   if (!hits) {
-    res.status(500).send({ code: 500, message: 'Search failed' });
+    res.status(500).send({ message: 'Search failed' });
     return;
   }
   res.json(hits);
