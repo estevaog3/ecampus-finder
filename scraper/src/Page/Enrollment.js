@@ -3,7 +3,7 @@ const CourseFormatter = require('../util/courseFormatter.js');
 
 const Enrollment = Object.create(Login);
 
-Enrollment.open = async function () {
+Enrollment.open = async function open() {
   if (!this.isLogged) {
     console.error('User must be logged in to open Enrollment Page');
     return;
@@ -38,14 +38,14 @@ Enrollment.open = async function () {
   this.isAtEnrollmentPage = true;
 };
 
-Enrollment.selectCourse = async function (index) {
-  await this.page.evaluate((index) => {
+Enrollment.selectCourse = async function selectCourse(index) {
+  await this.page.evaluate((i) => {
     const select = document.getElementById('curso');
-    select.selectedIndex = index;
+    select.selectedIndex = i;
   }, index);
 };
 
-Enrollment.scrapeCourse = async function (index) {
+Enrollment.scrapeCourse = async function scrapeCourse(index) {
   await this.selectCourse(index);
   await this.page.click('#buscar-por-curso');
   await this.page.waitFor('#grid-turmas-outros');
@@ -54,8 +54,7 @@ Enrollment.scrapeCourse = async function (index) {
     // get código e nome da disciplina
     const select = document.getElementById('curso');
     const codigoENome = select.options[select.selectedIndex].innerText;
-    data.codigo = codigoENome.split(' - ')[0];
-    data.nome = codigoENome.split(' - ')[1];
+    [data.codigo, data.nome] = codigoENome.split(' - ');
 
     const table = document.getElementById('grid-turmas-outros');
 
@@ -89,7 +88,7 @@ Enrollment.scrapeCourse = async function (index) {
   });
 };
 
-Enrollment.scrapeAllCourses = async function () {
+Enrollment.scrapeAllCourses = async function scrapeAllCourses() {
   if (!this.isAtEnrollmentPage) {
     await this.open();
   }
