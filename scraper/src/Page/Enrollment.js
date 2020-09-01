@@ -99,9 +99,11 @@ Enrollment.scrapeAllCourses = async function () {
     console.log('begin', i);
     try {
       const course = await this.scrapeCourse(i);
-      const newClasses = CourseFormatter.parseClasses(course);
-      for (newClass of newClasses) {
-        classes.push(newClasse);
+      const newClasses = CourseFormatter.parseClasses(course, {
+        isFormatted: false,
+      });
+      for (const newClass of newClasses) {
+        classes.push(newClass);
       }
     } catch (e) {
       console.error(e);
