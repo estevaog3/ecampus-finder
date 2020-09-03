@@ -1,0 +1,22 @@
+* {
+  --search-bar-height: 46px;
+}
+
+.search-bar-input {
+  background: #ffffff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  border-radius: calc(var(--search-bar-height) / 2);
+  height: var(--search-bar-height);
+  width: 90vw;
+  max-width: 550px;
+  padding: 0 calc(var(--search-bar-height) / 2);
+  border: 1px solid #fff;
+  outline: none;
+  transition: all ease-out 0.2s;
+  font-size: 18px;
+}
+
+.search-bar-input:focus,
+.search-bar-input:hover {
+  border: 1px solid #303431;
+}

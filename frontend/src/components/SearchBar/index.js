@@ -1,9 +1,15 @@
 import React from "react";
 
-function SearchBar({ placeholder }) {
+import "./styles.css";
+
+function SearchBar({ placeholder, className }) {
   return (
-    <form>
-      <input type="search" placeholder={placeholder} />
+    <form className={className}>
+      <input
+        className="search-bar-input"
+        type="text"
+        placeholder={placeholder}
+      />
     </form>
   );
 }
