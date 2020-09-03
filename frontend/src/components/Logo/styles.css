@@ -1,0 +1,28 @@
+.title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 48px;
+  line-height: 64px;
+  color: #303431;
+  font-family: "Campton", helvetica, arial, sans-serif;
+}
+
+.title-primary {
+  color: #5b9e4d;
+}
+
+.slogan {
+  margin-top: 12px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  color: #303431;
+}
+
+.wrap-logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
