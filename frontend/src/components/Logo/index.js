@@ -2,13 +2,12 @@ import React from "react";
 
 import "./styles.css";
 
-function Logo({ slogan }) {
+function Logo({ className }) {
   return (
-    <div className="wrap-logo">
+    <div className={"wrap-logo " + className}>
       <h1 className="title">
         <span className="title-primary">Ecampus</span>Finder
       </h1>
-      <h2 className="slogan">{slogan}</h2>
     </div>
   );
 }

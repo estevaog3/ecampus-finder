@@ -6,7 +6,7 @@ import SearchBar from "./components/SearchBar/index";
 function App() {
   return (
     <div>
-      <Logo slogan="Encontre facilmente turmas da 2º fila de matrícula da UFAM" />
+      <Logo />
       <SearchBar placeholder="disciplina, curso, horário..." />
     </div>
   );
