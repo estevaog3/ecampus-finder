@@ -5,8 +5,8 @@ import SearchBar from "./components/SearchBar/index";
 
 function App() {
   return (
-    <div>
-      <Logo />
+    <div className="wrap-app">
+      <Logo className="margin-bottom-lg" />
       <SearchBar placeholder="disciplina, curso, horário..." />
     </div>
   );

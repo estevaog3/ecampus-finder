@@ -1,3 +1,25 @@
 * {
   font-family: "Red Hat Text", sans-serif;
+  --space-lg: 32px;
+}
+
+.margin-bottom-lg {
+  margin-bottom: var(--space-lg);
+}
+
+.wrap-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-100% + var(--search-bar-height) / 2));
+}
+
+@media (min-width: 768px) {
+  * {
+    --space-lg: 64px;
+  }
 }
