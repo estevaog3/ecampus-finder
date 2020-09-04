@@ -1,5 +1,6 @@
 * {
   --search-bar-height: 46px;
+  --search-controls-width: 52px;
 }
 
 .search-bar-input {
@@ -9,7 +10,9 @@
   height: var(--search-bar-height);
   width: 90vw;
   max-width: 550px;
-  padding: 0 calc(var(--search-bar-height) / 2);
+  padding: 0
+    calc(0.5em + var(--search-controls-width) + var(--search-bar-height) / 2) 0
+    calc(var(--search-bar-height) / 2);
   border: 1px solid #fff;
   outline: none;
   transition: all ease-out 0.2s;
@@ -19,4 +22,39 @@
 .search-bar-input:focus,
 .search-bar-input:hover {
   border: 1px solid #303431;
+}
+
+.search-bar-wrap {
+  position: relative;
+}
+
+.search-controls {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(calc(-1 * var(--search-bar-height) / 2), -50%);
+  width: var(--search-controls-width);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-controls > * {
+  cursor: pointer;
+}
+
+.search-control-search {
+  height: 18px;
+  width: 18px;
+}
+
+.search-control-close {
+  height: 14px;
+  width: 14px;
+  opacity: 0;
+  transition: all ease-out 0.2s;
+}
+
+.search-control-close--appear-yes {
+  opacity: 1;
 }
