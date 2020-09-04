@@ -3,6 +3,10 @@
   --space-lg: 32px;
 }
 
+:root {
+  font-size: 16px;
+}
+
 .margin-bottom-lg {
   margin-bottom: var(--space-lg);
 }

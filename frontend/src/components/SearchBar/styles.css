@@ -16,7 +16,7 @@
   border: 1px solid #fff;
   outline: none;
   transition: all ease-out 0.2s;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .search-bar-input:focus,
@@ -57,4 +57,10 @@
 
 .search-control-close--appear-yes {
   opacity: 1;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    font-size: 18px;
+  }
 }
