@@ -1,8 +1,8 @@
-const { Client } = require('@elastic/elasticsearch');
-const { BULK_TIMEOUT, SEARCH_TIMEOUT } = require('../constants');
-const config = require('./searchClientConfig.json');
+const { Client } = require("@elastic/elasticsearch");
+const { BULK_TIMEOUT, SEARCH_TIMEOUT } = require("../constants");
+const config = require("./searchClientConfig.json");
 
-const client = new Client({ node: 'http://localhost:9200' });
+const client = new Client({ node: "http://localhost:9200" });
 
 /*  
     Author:  @ashwinaggarwal
@@ -23,7 +23,7 @@ const mapRecordsToElasticSearchBulk = (records, index) =>
         ]),
       [],
     )
-    .join('\n')}\n`;
+    .join("\n")}\n`;
 
 exports.indexAll = async function indexAll(records, index) {
   try {
@@ -49,7 +49,7 @@ exports.init = async function init(index) {
       body: config,
     });
   } catch (e) {
-    console.log('searchClient init: failed to init:', e);
+    console.log("searchClient init: failed to init:", e);
     process.exit(1);
   }
 };
@@ -78,7 +78,7 @@ exports.query = async function query(
     });
     return body.hits.hits;
   } catch (e) {
-    console.log('searchClient query failed:', e);
+    console.log("searchClient query failed:", e);
     return undefined;
   }
 };

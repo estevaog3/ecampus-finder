@@ -1,16 +1,16 @@
-const express = require('express');
-const searchClient = require('./services/searchClient');
-const { PROD_INDEX } = require('./constants');
+const express = require("express");
+const searchClient = require("./services/searchClient");
+const { PROD_INDEX } = require("./constants");
 
 const router = express.Router();
 
 const transformQuery = (query) => {
   return query
-    .replace(/( e )|( E )/g, ' AND ')
-    .replace(/( ou )|( OU )|( Ou )|( oU )/g, ' OR ');
+    .replace(/( e )|( E )/g, " AND ")
+    .replace(/( ou )|( OU )|( Ou )|( oU )/g, " OR ");
 };
 
-router.post('/search', async (req, res) => {
+router.post("/search", async (req, res) => {
   const { query, limit, offset, sort } = req.query;
   const { filter } = req.body;
   const hits = await searchClient.query(
@@ -22,7 +22,7 @@ router.post('/search', async (req, res) => {
     filter,
   );
   if (!hits) {
-    res.status(500).send({ message: 'Search failed' });
+    res.status(500).send({ message: "Search failed" });
     return;
   }
   res.json(

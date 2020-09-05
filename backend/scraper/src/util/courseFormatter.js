@@ -2,19 +2,19 @@ function formatCourse(curso) {
   const disciplinas = [];
   let disciplina;
   let turma;
-  let lookingFor = 'disciplina';
+  let lookingFor = "disciplina";
 
   function assertLength(array, len, msg) {
     if (array.length !== len) {
-      console.log(msg, 'expected length == ', len, ', got:', array.length);
-      console.log('array:', array);
+      console.log(msg, "expected length == ", len, ", got:", array.length);
+      console.log("array:", array);
       return false;
     }
     return true;
   }
 
   for (let i = 1; i < curso.disciplinas.length; i++) {
-    if (lookingFor === 'disciplina') {
+    if (lookingFor === "disciplina") {
       if (
         assertLength(curso.disciplinas[i], 2, `[looking for ${lookingFor}] `) ==
         false
@@ -24,10 +24,10 @@ function formatCourse(curso) {
       disciplina = {};
       disciplina.codigo = curso.disciplinas[i][0];
       disciplina.nome = curso.disciplinas[i][1];
-      lookingFor = 'turma';
+      lookingFor = "turma";
       disciplina.turmas = [];
       i++;
-    } else if (lookingFor === 'turma') {
+    } else if (lookingFor === "turma") {
       if (
         assertLength(curso.disciplinas[i], 3, `[looking for ${lookingFor}] `) ==
         false
@@ -39,13 +39,13 @@ function formatCourse(curso) {
       turma.numeroDeVagas = curso.disciplinas[i][1];
       turma.numeroDeSolicitacoes = curso.disciplinas[i][2];
 
-      lookingFor = 'horarios';
+      lookingFor = "horarios";
       turma.horarios = [];
       i += 2;
-    } else if (lookingFor === 'horarios') {
+    } else if (lookingFor === "horarios") {
       if (
         curso.disciplinas[i].length === 1 &&
-        curso.disciplinas[i][0].match('^(N|n)enhum')
+        curso.disciplinas[i][0].match("^(N|n)enhum")
       ) {
         // turma corrente está sem horário
         const copy = JSON.parse(JSON.stringify(turma));
@@ -54,25 +54,25 @@ function formatCourse(curso) {
           i + 1 < curso.disciplinas.length &&
           curso.disciplinas[i + 1].length === 2
         ) {
-          lookingFor = 'disciplina';
+          lookingFor = "disciplina";
         } else {
-          lookingFor = 'turma';
+          lookingFor = "turma";
         }
       } else if (
         curso.disciplinas[i].length === 3 &&
-        curso.disciplinas[i][2].split(':').length === 1
+        curso.disciplinas[i][2].split(":").length === 1
       ) {
         // atual é turma
         const copy = JSON.parse(JSON.stringify(turma));
         disciplina.turmas.push(copy);
-        lookingFor = 'turma';
+        lookingFor = "turma";
         i--;
       } else if (curso.disciplinas[i].length === 2) {
         // atual é disciplina
         disciplina.turmas.push(turma);
         const copy = JSON.parse(JSON.stringify(disciplina));
         disciplinas.push(copy);
-        lookingFor = 'disciplina';
+        lookingFor = "disciplina";
         i--;
       } else {
         if (
@@ -98,7 +98,7 @@ function formatCourse(curso) {
 }
 
 function parseTimeOfDayToMinutesTimestamp(timeOfDay) {
-  const hourAndMinute = timeOfDay.split(':');
+  const hourAndMinute = timeOfDay.split(":");
   return parseInt(hourAndMinute[0], 10) * 60 + parseInt(hourAndMinute[1], 10);
 }
 
