@@ -17,7 +17,7 @@
     "global-require": "off",
     "no-underscore-dangle": "off",
     "import/no-dynamic-require": "off",
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-plusplus": "off",
     "no-restricted-syntax": [
       "error",
       {

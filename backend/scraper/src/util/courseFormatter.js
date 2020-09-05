@@ -16,28 +16,27 @@ function formatCourse(curso) {
   for (let i = 1; i < curso.disciplinas.length; i++) {
     if (lookingFor === "disciplina") {
       if (
-        assertLength(curso.disciplinas[i], 2, `[looking for ${lookingFor}] `) ==
-        false
+        !assertLength(curso.disciplinas[i], 2, `[looking for ${lookingFor}] `)
       ) {
         return {};
       }
       disciplina = {};
-      disciplina.codigo = curso.disciplinas[i][0];
-      disciplina.nome = curso.disciplinas[i][1];
+      [disciplina.codigo, disciplina.nome] = curso.disciplinas[i];
       lookingFor = "turma";
       disciplina.turmas = [];
       i++;
     } else if (lookingFor === "turma") {
       if (
-        assertLength(curso.disciplinas[i], 3, `[looking for ${lookingFor}] `) ==
-        false
+        !assertLength(curso.disciplinas[i], 3, `[looking for ${lookingFor}] `)
       ) {
         return {};
       }
       turma = {};
-      turma.codigo = curso.disciplinas[i][0];
-      turma.numeroDeVagas = curso.disciplinas[i][1];
-      turma.numeroDeSolicitacoes = curso.disciplinas[i][2];
+      [
+        turma.codigo,
+        turma.numeroDeVagas,
+        turma.numeroDeSolicitacoes,
+      ] = curso.disciplinas[i];
 
       lookingFor = "horarios";
       turma.horarios = [];
@@ -76,11 +75,7 @@ function formatCourse(curso) {
         i--;
       } else {
         if (
-          assertLength(
-            curso.disciplinas[i],
-            3,
-            `[looking for ${lookingFor}] `,
-          ) == false
+          !assertLength(curso.disciplinas[i], 3, `[looking for ${lookingFor}] `)
         ) {
           return {};
         }
