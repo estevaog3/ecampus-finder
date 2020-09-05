@@ -1,14 +1,12 @@
 import React from "react";
-import "./App.css";
-import Logo from "./components/Logo/index";
-import SearchBar from "./components/SearchBar/index";
+import { BrowserRouter, Route } from "react-router-dom";
+import Home from "./components/HomePage/index";
 
 function App() {
   return (
-    <div className="wrap-app">
-      <Logo className="margin-bottom-lg" />
-      <SearchBar placeholder="disciplina, curso, horário..." />
-    </div>
+    <BrowserRouter>
+      <Route path="/" component={Home} />
+    </BrowserRouter>
   );
 }
 
