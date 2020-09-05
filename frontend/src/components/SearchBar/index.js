@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import "./styles.css";
 import { ReactComponent as SearchIcon } from "./search.svg";
 import { ReactComponent as CloseIcon } from "./close.svg";
@@ -48,5 +49,10 @@ function SearchBar({ history, placeholder }) {
     </form>
   );
 }
+
+SearchBar.propTypes = {
+  history: PropTypes.object.isRequired,
+  placeholder: PropTypes.string,
+};
 
 export default SearchBar;

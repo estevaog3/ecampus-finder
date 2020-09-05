@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import "./styles.css";
 
@@ -11,5 +12,9 @@ function Logo({ className }) {
     </div>
   );
 }
+
+Logo.propTypes = {
+  className: PropTypes.string,
+};
 
 export default Logo;
