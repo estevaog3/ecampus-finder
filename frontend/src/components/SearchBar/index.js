@@ -4,7 +4,7 @@ import "./styles.css";
 import { ReactComponent as SearchIcon } from "./search.svg";
 import { ReactComponent as CloseIcon } from "./close.svg";
 
-function SearchBar({ placeholder }) {
+function SearchBar({ history, placeholder }) {
   const [query, setQuery] = useState("");
 
   const onQueryChange = (e) => {
@@ -15,9 +15,9 @@ function SearchBar({ placeholder }) {
     setQuery("");
   };
 
-  const onSearchIconClick = () => {
-    //TODO: consultar API de turmas
-    console.log("query:", query);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    history.push(`/search/${query}`);
   };
 
   const toggleCloseIconClass = () => {
@@ -28,7 +28,7 @@ function SearchBar({ placeholder }) {
   };
 
   return (
-    <form className="search-bar-wrap">
+    <form className="search-bar-wrap" onSubmit={onSubmit}>
       <input
         className="search-bar-input"
         type="text"
@@ -41,10 +41,9 @@ function SearchBar({ placeholder }) {
           onClick={onCloseIconClick}
           className={"search-control-close " + toggleCloseIconClass()}
         />
-        <SearchIcon
-          onClick={onSearchIconClick}
-          className="search-control-search"
-        />
+        <button type="submit" className="search-control-search-wrap">
+          <SearchIcon className="search-control-search" />
+        </button>
       </div>
     </form>
   );

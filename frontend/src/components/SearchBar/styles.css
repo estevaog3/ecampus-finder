@@ -48,6 +48,10 @@
   width: 18px;
 }
 
+.search-control-search-wrap {
+  background-color: #fff;
+}
+
 .search-control-close {
   height: 14px;
   width: 14px;
