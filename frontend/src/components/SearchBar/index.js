@@ -5,8 +5,8 @@ import "./styles.css";
 import { ReactComponent as SearchIcon } from "./search.svg";
 import { ReactComponent as CloseIcon } from "./close.svg";
 
-function SearchBar({ history, placeholder }) {
-  const [query, setQuery] = useState("");
+function SearchBar({ history, placeholder, initialQuery }) {
+  const [query, setQuery] = useState(initialQuery ? initialQuery : "");
 
   const onQueryChange = (e) => {
     setQuery(e.target.value);
@@ -53,6 +53,7 @@ function SearchBar({ history, placeholder }) {
 SearchBar.propTypes = {
   history: PropTypes.object.isRequired,
   placeholder: PropTypes.string,
+  initialQuery: PropTypes.string,
 };
 
 export default SearchBar;
