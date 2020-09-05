@@ -22,7 +22,7 @@ function SearchBar({ history, placeholder }) {
   };
 
   const toggleCloseIconClass = () => {
-    if (query.length == 0) {
+    if (query.length === 0) {
       return "";
     }
     return "search-control-close--appear-yes";
