@@ -9,10 +9,3 @@
 .title-primary {
   color: #5b9e4d;
 }
-
-.wrap-logo {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
