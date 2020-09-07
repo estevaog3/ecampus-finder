@@ -5,6 +5,7 @@ import Logo from "../Logo/index";
 import api from "../../services/api";
 import queryString from "query-string";
 import { fixedEncodeURIComponent } from "../../util/index";
+import "./styles.css";
 
 function ResultsPage({ history, location }) {
   const [results, setResults] = useState([]);
@@ -45,8 +46,8 @@ function ResultsPage({ history, location }) {
 
   return (
     <div>
-      <header>
-        <Logo />
+      <header className="header">
+        <Logo className="title--small" />
         <SearchBar
           placeholder="disciplina, curso, horário..."
           history={history}

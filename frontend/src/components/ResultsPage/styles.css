@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(91, 158, 77, 0.2);
+  padding: 10px 12px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.header > .title {
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 1070px) {
+  .header {
+    height: 64px;
+    position: relative;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .header > .search-bar-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

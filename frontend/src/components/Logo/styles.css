@@ -9,3 +9,7 @@
 .title-primary {
   color: #5b9e4d;
 }
+
+.title--small {
+  font-size: 2rem;
+}
