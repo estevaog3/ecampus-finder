@@ -1,0 +1,22 @@
+.result-header {
+  display: flex;
+}
+
+.concorrencia {
+  height: 1.2rem;
+  margin-right: 0.5rem;
+  position: relative;
+  top: 0.25rem;
+}
+
+.concorrencia--baixa {
+  color: green;
+}
+
+.concorrencia--media {
+  color: #ffb800;
+}
+
+.concorrencia--alta {
+  color: red;
+}
