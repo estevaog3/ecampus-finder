@@ -18,7 +18,10 @@ function SearchBar({ history, placeholder, initialQuery }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    history.push(`/search/${query}`);
+    history.push({
+      pathname: "/search/",
+      search: `?query=${query}`,
+    });
   };
 
   const toggleCloseIconClass = () => {

@@ -3,13 +3,15 @@ import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar/index";
 import Logo from "../Logo/index";
 import api from "../../services/api";
+import queryString from "query-string";
+import { fixedEncodeURIComponent } from "../../util/index";
 
-function ResultsPage({ history, match }) {
+function ResultsPage({ history, location }) {
   const [results, setResults] = useState([]);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    const loadResults = async (query) => {
+    const loadResults = async (queryEncoded) => {
       try {
         const searchResults = await api.post(
           "/search",
@@ -22,9 +24,7 @@ function ResultsPage({ history, match }) {
           },
           {
             params: {
-              // TODO: codificar 'query' para resolver este erro:
-              // Response status 400: Parameter 'query' must be url encoded. It's value may not contain reserved characters
-              query: query,
+              query: queryEncoded,
               limit: 10,
             },
           }
@@ -38,8 +38,10 @@ function ResultsPage({ history, match }) {
       }
     };
 
-    loadResults(match.params.query);
-  }, [match.params.query]);
+    const parsed = queryString.parse(location.search);
+    const queryEncoded = fixedEncodeURIComponent(parsed.query);
+    loadResults(queryEncoded);
+  }, [location.search]);
 
   return (
     <div>
@@ -48,7 +50,7 @@ function ResultsPage({ history, match }) {
         <SearchBar
           placeholder="disciplina, curso, horário..."
           history={history}
-          initialQuery={match.params.query}
+          initialQuery={queryString.parse(location.search).query}
         />
       </header>
       {results.length > 0 ? (

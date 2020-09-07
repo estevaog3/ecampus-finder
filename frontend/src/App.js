@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Route path="/" exact component={HomePage} />
-      <Route path="/search/:query" component={ResultsPage} />
+      <Route path="/search" exact component={ResultsPage} />
     </BrowserRouter>
   );
 }
