@@ -11,6 +11,16 @@
   margin-bottom: 10px;
 }
 
+.results {
+  width: 90%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.results li:not(:last-child) {
+  margin-bottom: 1.2rem;
+}
+
 @media screen and (min-width: 1070px) {
   .header {
     height: 64px;
