@@ -4,8 +4,10 @@ import SearchBar from "../SearchBar/index";
 import Logo from "../Logo/index";
 import api from "../../services/api";
 import queryString from "query-string";
+
 import { fixedEncodeURIComponent } from "../../util/index";
 import "./styles.css";
+import Result from "../Result/index";
 
 function ResultsPage({ history, location }) {
   const [results, setResults] = useState([]);
@@ -44,6 +46,18 @@ function ResultsPage({ history, location }) {
     loadResults(queryEncoded);
   }, [location.search]);
 
+  const renderResults = (results) => {
+    return (
+      <ul className="results">
+        {results.map((result, i) => (
+          <li key={i}>
+            <Result {...result} />
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <div>
       <header className="header">
@@ -55,11 +69,7 @@ function ResultsPage({ history, location }) {
         />
       </header>
       {results.length > 0 ? (
-        <ul>
-          {results.map((result, i) => (
-            <li key={i}>{JSON.stringify(result)}</li>
-          ))}
-        </ul>
+        renderResults(results)
       ) : hasError ? (
         <p>Infelizmente ocorreu um erro na busca :(</p>
       ) : (
