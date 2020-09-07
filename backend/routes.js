@@ -1,11 +1,13 @@
 const express = require("express");
+const querystring = require("querystring");
 const searchClient = require("./services/searchClient");
 const { PROD_INDEX } = require("./constants");
 
 const router = express.Router();
 
 const transformQuery = (query) => {
-  return query
+  return querystring
+    .unescape(query)
     .replace(/( e )|( E )/g, " AND ")
     .replace(/( ou )|( OU )|( Ou )|( oU )/g, " OR ");
 };
