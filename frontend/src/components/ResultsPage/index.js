@@ -8,10 +8,12 @@ import queryString from "query-string";
 import { fixedEncodeURIComponent } from "../../util/index";
 import "./styles.css";
 import Result from "../Result/index";
+import { ReactComponent as LoadingAnimation } from "./loading.svg";
 
 function ResultsPage({ history, location }) {
   const [results, setResults] = useState([]);
   const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadResults = async (queryEncoded) => {
@@ -39,8 +41,9 @@ function ResultsPage({ history, location }) {
         setHasError(true);
         console.log(e.message);
       }
+      setIsLoading(false);
     };
-
+    setIsLoading(true);
     const parsed = queryString.parse(location.search);
     const queryEncoded = fixedEncodeURIComponent(parsed.query);
     loadResults(queryEncoded);
@@ -68,12 +71,16 @@ function ResultsPage({ history, location }) {
           initialQuery={queryString.parse(location.search).query}
         />
       </header>
-      {results.length > 0 ? (
-        renderResults(results)
+      {isLoading ? (
+        <div>
+          <LoadingAnimation className="loading-animation" />
+        </div>
       ) : hasError ? (
         <p className="message message--danger">
           Infelizmente ocorreu um erro na busca :(
         </p>
+      ) : results.length > 0 ? (
+        renderResults(results)
       ) : (
         <div>
           <p className="message">Nenhum resultado encontrado :(</p>
