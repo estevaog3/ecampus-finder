@@ -21,6 +21,19 @@
   margin-bottom: 1.2rem;
 }
 
+.message {
+  text-align: center;
+  color: #303431;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.message--danger {
+  color: red;
+}
+
 @media screen and (min-width: 1070px) {
   .header {
     height: 64px;

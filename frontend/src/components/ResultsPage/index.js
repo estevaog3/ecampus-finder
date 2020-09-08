@@ -59,7 +59,7 @@ function ResultsPage({ history, location }) {
   };
 
   return (
-    <div>
+    <div className="results-page-wrap">
       <header className="header">
         <Logo className="title--small" />
         <SearchBar
@@ -71,9 +71,13 @@ function ResultsPage({ history, location }) {
       {results.length > 0 ? (
         renderResults(results)
       ) : hasError ? (
-        <p>Infelizmente ocorreu um erro na busca :(</p>
+        <p className="message message--danger">
+          Infelizmente ocorreu um erro na busca :(
+        </p>
       ) : (
-        <p>Nenhum resultado encontrado :(</p>
+        <div>
+          <p className="message">Nenhum resultado encontrado :(</p>
+        </div>
       )}
     </div>
   );
