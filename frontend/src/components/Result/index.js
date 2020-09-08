@@ -22,9 +22,7 @@ function Result({ curso, disciplina, codigo, concorrencia, horarios }) {
         <ConcorrenciaAltaIcon className="concorrencia concorrencia--alta" />
       );
     } else {
-      return (
-        <ConcorrenciaCheiaIcon className="concorrencia concorrencia--cheia" />
-      );
+      return <ConcorrenciaCheiaIcon className="concorrencia" />;
     }
   };
 
