@@ -14,40 +14,56 @@ function ResultsPage({ history, location }) {
   const [results, setResults] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasMoreResults, setHasMoreResults] = useState(undefined);
+  const [offset, setOffset] = useState(0);
+
+  const limit = 10;
+
+  const encodeQuery = (query) => {
+    return fixedEncodeURIComponent(queryString.parse(query).query);
+  };
 
   useEffect(() => {
-    const loadResults = async (queryEncoded) => {
-      try {
-        const searchResults = await api.post(
-          "/search",
-          {
-            filter: {
-              startTimestampsMin: [1],
-              endTimestampsMin: [1440],
-              days: ["seg", "ter", "qua", "qui", "sex", "sab"],
-            },
+    const getResults = async (queryEncoded, offset, limit) => {
+      const res = await api.post(
+        "/search",
+        {
+          filter: {
+            startTimestampsMin: [1],
+            endTimestampsMin: [1440],
+            days: ["seg", "ter", "qua", "qui", "sex", "sab"],
           },
-          {
-            params: {
-              query: queryEncoded,
-              limit: 10,
-            },
-          }
-        );
-        setResults(searchResults.data);
-        setHasError(false);
-      } catch (e) {
-        setResults([]);
-        setHasError(true);
-        console.log(e.message);
-      }
-      setIsLoading(false);
+        },
+        {
+          params: {
+            query: queryEncoded,
+            limit: limit,
+            offset: offset,
+          },
+        }
+      );
+      return res.data;
     };
     setIsLoading(true);
-    const parsed = queryString.parse(location.search);
-    const queryEncoded = fixedEncodeURIComponent(parsed.query);
-    loadResults(queryEncoded);
-  }, [location.search]);
+    getResults(encodeQuery(location.search), offset, limit)
+      .then((searchResults) => {
+        if (offset === 0) {
+          setResults(searchResults);
+        } else {
+          setResults(results.concat(searchResults));
+        }
+        setHasError(false);
+        setHasMoreResults(searchResults.length === 10 ? true : true);
+        setIsLoading(false);
+      })
+      .catch((e) => {
+        setResults([]);
+        setHasError(true);
+        setHasMoreResults(false);
+        setIsLoading(false);
+        console.log(e.message);
+      });
+  }, [location.search, offset]);
 
   const renderResults = (results) => {
     return (
@@ -59,6 +75,10 @@ function ResultsPage({ history, location }) {
         ))}
       </ul>
     );
+  };
+
+  const onLoadMoreClick = () => {
+    setOffset(offset + limit);
   };
 
   return (
@@ -80,7 +100,12 @@ function ResultsPage({ history, location }) {
           Infelizmente ocorreu um erro na busca :(
         </p>
       ) : results.length > 0 ? (
-        renderResults(results)
+        <div>
+          {renderResults(results)}
+          {hasMoreResults ? (
+            <button onClick={onLoadMoreClick}>Carregar Mais</button>
+          ) : null}
+        </div>
       ) : (
         <div>
           <p className="message">Nenhum resultado encontrado :(</p>
