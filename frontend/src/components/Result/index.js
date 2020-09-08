@@ -34,12 +34,12 @@ function Result({ curso, disciplina, codigo, concorrencia, horarios }) {
     }
     return (
       <ul className="horarios-wrap">
-        {horarios.map((horario) => {
+        {horarios.map((horario, i) => {
           const dias = horario.dias
             .map((dia) => dia.toLowerCase().substring(0, 3))
             .join(", ");
           return (
-            <li>
+            <li key={i}>
               <div className="horario-item">
                 <CalendarioIcon className="horario-icon" />
                 <p>{dias}</p>
