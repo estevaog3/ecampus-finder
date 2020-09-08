@@ -4,6 +4,8 @@ import { ReactComponent as ConcorrenciaBaixaIcon } from "./thermometer-1.svg";
 import { ReactComponent as ConcorrenciaMediaIcon } from "./thermometer-2.svg";
 import { ReactComponent as ConcorrenciaAltaIcon } from "./thermometer-3.svg";
 import { ReactComponent as ConcorrenciaCheiaIcon } from "./thermometer-4.svg";
+import { ReactComponent as CalendarioIcon } from "./calendar.svg";
+import { ReactComponent as InicioTerminoIcon } from "./clock.svg";
 
 import "./styles.css";
 
@@ -26,6 +28,35 @@ function Result({ curso, disciplina, codigo, concorrencia, horarios }) {
     }
   };
 
+  const renderHorarios = (horarios) => {
+    if (horarios.length === 0) {
+      return <p>Não há horários no sistema</p>;
+    }
+    return (
+      <ul className="horarios-wrap">
+        {horarios.map((horario) => {
+          const dias = horario.dias
+            .map((dia) => dia.toLowerCase().substring(0, 3))
+            .join(", ");
+          return (
+            <li>
+              <div className="horario-item">
+                <CalendarioIcon className="horario-icon" />
+                <p>{dias}</p>
+              </div>
+              <div className="horario-item">
+                <InicioTerminoIcon className="horario-icon" />
+                <p>
+                  {horario.inicio} - {horario.termino}
+                </p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
   return (
     <div className="result-wrap">
       <div className="result-header">
@@ -33,12 +64,8 @@ function Result({ curso, disciplina, codigo, concorrencia, horarios }) {
         <h2>{disciplina.nome}</h2>
       </div>
       <div className="result-body">
-        <div>
-          {
-            // TODO: adicionar renderização dos horários
-          }
-        </div>
-        <p>
+        <div>{renderHorarios(horarios)}</div>
+        <p className="turma-curso">
           Turma {codigo} | {curso.nome} - {curso.codigo}
         </p>
       </div>

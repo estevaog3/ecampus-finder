@@ -1,5 +1,13 @@
 .result-header {
   display: flex;
+  margin-bottom: 0.3rem;
+  color: #303431;
+}
+
+.result-body {
+  width: 99%;
+  margin-left: auto;
+  color: #303431;
 }
 
 .concorrencia {
@@ -19,4 +27,28 @@
 
 .concorrencia--alta {
   color: red;
+}
+
+.horarios-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.horarios-wrap > li {
+  margin-right: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.horario-item {
+  display: flex;
+}
+
+.horario-icon {
+  width: 0.9rem;
+  margin-right: 0.5rem;
+  color: #bbb;
+}
+
+.turma-curso {
+  color: #303431b6;
 }
