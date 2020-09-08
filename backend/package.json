@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "scrape": "node ./scraper/src/main.js",
-    "mock": "prism mock -d api.yaml"
+    "mock": "prism mock -d api.yaml -p 4444"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.8.0",
