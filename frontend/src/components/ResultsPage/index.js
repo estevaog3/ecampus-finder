@@ -2,68 +2,94 @@ import React from "react";
 import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar/index";
 import Logo from "../Logo/index";
+import Button from "../Button/index";
 import api from "../../services/api";
 import queryString from "query-string";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { fixedEncodeURIComponent } from "../../util/index";
 import "./styles.css";
 import Result from "../Result/index";
 import { ReactComponent as LoadingAnimation } from "./loading.svg";
 
+let searchParams = {
+  // Importante:
+  // este objeto não pode ser declarado dentro do componente abaixo.
+  // Caso contrário, não será possível escrever os seus atributos em uma função arrow.
+  // TODO: investigar o motivo de isso acontecer
+  offset: 0,
+  limit: 10,
+};
+
 function ResultsPage({ history, location }) {
   const [results, setResults] = useState([]);
-  const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMoreResults, setHasMoreResults] = useState(undefined);
-  const [offset, setOffset] = useState(0);
-
-  const limit = 10;
 
   const encodeQuery = (query) => {
     return fixedEncodeURIComponent(queryString.parse(query).query);
   };
 
-  useEffect(() => {
-    const getResults = async (queryEncoded, offset, limit) => {
-      const res = await api.post(
-        "/search",
-        {
-          filter: {
-            startTimestampsMin: [1],
-            endTimestampsMin: [1440],
-            days: ["seg", "ter", "qua", "qui", "sex", "sab"],
-          },
+  const getResults = (queryEncoded, offset, limit) => {
+    const res = api.post(
+      "/search",
+      {
+        filter: {
+          startTimestampsMin: [1],
+          endTimestampsMin: [1440],
+          days: ["seg", "ter", "qua", "qui", "sex", "sab"],
         },
-        {
-          params: {
-            query: queryEncoded,
-            limit: limit,
-            offset: offset,
-          },
-        }
-      );
-      return res.data;
-    };
+      },
+      {
+        params: {
+          query: queryEncoded,
+          limit: limit,
+          offset: offset,
+        },
+      }
+    );
+    return res;
+  };
+
+  const handleSearchError = (e) => {
+    notifyError("Houve um erro na operação :(");
+    console.log(e.message);
+  };
+
+  const notifyError = (message) => {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  useEffect(() => {
     setIsLoading(true);
-    getResults(encodeQuery(location.search), offset, limit)
-      .then((searchResults) => {
-        if (offset === 0) {
-          setResults(searchResults);
-        } else {
-          setResults(results.concat(searchResults));
-        }
-        setHasError(false);
-        setHasMoreResults(searchResults.length === 10 ? true : true);
+    searchParams.offset = 0;
+    getResults(
+      encodeQuery(location.search),
+      searchParams.offset,
+      searchParams.limit
+    )
+      .then((res) => {
+        const searchResults = res.data;
+        setResults(searchResults);
+        setHasMoreResults(
+          searchResults.length === searchParams.limit ? true : false
+        );
         setIsLoading(false);
       })
       .catch((e) => {
-        setResults([]);
-        setHasError(true);
-        setHasMoreResults(false);
+        handleSearchError(e);
         setIsLoading(false);
-        console.log(e.message);
       });
-  }, [location.search, offset]);
+  }, [location.search]);
 
   const renderResults = (results) => {
     return (
@@ -78,7 +104,25 @@ function ResultsPage({ history, location }) {
   };
 
   const onLoadMoreClick = () => {
-    setOffset(offset + limit);
+    setIsLoading(true);
+    getResults(
+      encodeQuery(location.search),
+      searchParams.offset + searchParams.limit,
+      searchParams.limit
+    )
+      .then((res) => {
+        const searchResults = res.data;
+        setResults(results.concat(searchResults));
+        setHasMoreResults(
+          searchResults.length === searchParams.limit ? true : false
+        );
+        setIsLoading(false);
+        searchParams.offset = searchParams.offset + searchParams.limit;
+      })
+      .catch((e) => {
+        handleSearchError(e);
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -91,26 +135,21 @@ function ResultsPage({ history, location }) {
           initialQuery={queryString.parse(location.search).query}
         />
       </header>
-      {isLoading ? (
       <div className="body">
+        {renderResults(results)}
+        {isLoading && results.length === 0 ? (
           <LoadingAnimation className="loading-animation" />
-        </div>
-      ) : hasError ? (
-        <p className="message message--danger">
-          Infelizmente ocorreu um erro na busca :(
-        </p>
-      ) : results.length > 0 ? (
-        <div>
-          {renderResults(results)}
-          {hasMoreResults ? (
-            <button onClick={onLoadMoreClick}>Carregar Mais</button>
-          ) : null}
-        </div>
-      ) : (
-        <div>
+        ) : hasMoreResults ? (
+          <Button text="Carregar Mais" onClick={onLoadMoreClick}>
+            {isLoading ? (
+              <LoadingAnimation className="loading-animation" />
+            ) : null}
+          </Button>
+        ) : (
           <p className="message">Nenhum resultado encontrado :(</p>
-        </div>
-      )}
+        )}
+        <ToastContainer />
+      </div>
     </div>
   );
 }
