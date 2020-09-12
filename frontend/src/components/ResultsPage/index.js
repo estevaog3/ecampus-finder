@@ -92,7 +92,7 @@ function ResultsPage({ history, location }) {
         />
       </header>
       {isLoading ? (
-        <div>
+      <div className="body">
           <LoadingAnimation className="loading-animation" />
         </div>
       ) : hasError ? (
