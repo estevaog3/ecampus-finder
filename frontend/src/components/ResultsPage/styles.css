@@ -67,4 +67,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  .header > .title {
+    margin-bottom: 0;
+  }
 }
