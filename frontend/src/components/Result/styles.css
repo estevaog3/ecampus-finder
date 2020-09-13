@@ -39,6 +39,10 @@
   margin-bottom: 0.4rem;
 }
 
+.horarios-empty {
+  margin-bottom: 0.4rem;
+}
+
 .horario-item {
   display: flex;
 }

@@ -11,6 +11,9 @@ import "./styles.css";
 
 function Result({ curso, disciplina, codigo, concorrencia, horarios }) {
   const renderConcorrencia = (concorrencia) => {
+    if (!concorrencia) {
+      return null;
+    }
     if (concorrencia <= 0.3) {
       return (
         <ConcorrenciaBaixaIcon className="concorrencia concorrencia--baixa" />
@@ -29,8 +32,12 @@ function Result({ curso, disciplina, codigo, concorrencia, horarios }) {
   };
 
   const renderHorarios = (horarios) => {
-    if (horarios.length === 0) {
-      return <p>Não há horários no sistema</p>;
+    if (!horarios || horarios.length === 0) {
+      return (
+        <div className="horarios-empty">
+          <p>Não há horários no sistema</p>
+        </div>
+      );
     }
     return (
       <ul className="horarios-wrap">
