@@ -137,17 +137,19 @@ function ResultsPage({ history, location }) {
       </header>
       <div className="body">
         {renderResults(results)}
-        {isLoading && results.length === 0 ? (
-          <LoadingAnimation className="loading-animation" />
+        {results.length === 0 ? (
+          isLoading ? (
+            <LoadingAnimation className="loading-animation" />
+          ) : (
+            <p className="message">Nenhum resultado encontrado :(</p>
+          )
         ) : hasMoreResults ? (
           <Button text="Carregar Mais" onClick={onLoadMoreClick}>
             {isLoading ? (
               <LoadingAnimation className="loading-animation" />
             ) : null}
           </Button>
-        ) : (
-          <p className="message">Nenhum resultado encontrado :(</p>
-        )}
+        ) : null}
         <ToastContainer />
       </div>
     </div>
