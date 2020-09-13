@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 import "./styles.css";
 
-function Logo({ className }) {
+function Logo({ className, onClick }) {
   return (
-    <h1 className={"title " + className}>
+    <h1 className={"title " + className} onClick={onClick}>
       <span className="title-primary">Ecampus</span>Finder
     </h1>
   );
@@ -13,6 +13,7 @@ function Logo({ className }) {
 
 Logo.propTypes = {
   className: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default Logo;

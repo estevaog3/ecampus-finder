@@ -125,10 +125,14 @@ function ResultsPage({ history, location }) {
       });
   };
 
+  const onLogoClick = () => {
+    history.push("/");
+  };
+
   return (
     <div className="results-page-wrap">
       <header className="header">
-        <Logo className="title--small" />
+        <Logo className="title--small" onClick={onLogoClick} />
         <SearchBar
           placeholder="disciplina, curso, horário..."
           history={history}
