@@ -15,7 +15,7 @@ app.use(OpenApiValidator.middleware({
   apiSpec: './api.yaml'
 }))
 
-app.use("/v1/", routes);
+app.use("/", routes);
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({
     message: err.message,

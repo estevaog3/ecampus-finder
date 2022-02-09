@@ -1,8 +1,10 @@
-POST http://localhost:3000/v1/search?query=segunda&limit=10&offset=0 HTTP/1.1
+POST http://localhost:5555/search?query=segunda&limit=10&offset=0 HTTP/1.1
 content-type: application/json
 
 {
+"filter": {
   "startTimestampsMin": [200],
   "endTimestampsMin": [200],
   "days": ["seg"]
+}
 }
