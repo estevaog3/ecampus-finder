@@ -1,7 +1,6 @@
 const express = require("express");
 const querystring = require("querystring");
 const searchClient = require("./services/searchClient");
-const { PROD_INDEX } = require("./constants");
 
 const router = express.Router();
 
@@ -16,7 +15,7 @@ router.post("/search", async (req, res) => {
   const { query, limit, offset, sort } = req.query;
   const { filter } = req.body;
   const hits = await searchClient.query(
-    PROD_INDEX,
+    process.env.INDEX,
     transformQuery(query),
     limit,
     offset,

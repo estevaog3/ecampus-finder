@@ -2,11 +2,10 @@ require("dotenv").config();
 const Enrollment = require("./Page/Enrollment.js");
 const searchClient = require("../../services/searchClient");
 const fs = require('fs');
-const { PROD_INDEX } = require("../../constants");
 
 async function indexClasses(classes) {
-  await searchClient.init(PROD_INDEX);
-  await searchClient.indexAll(classes, PROD_INDEX);
+  await searchClient.init(process.env.INDEX);
+  await searchClient.indexAll(classes, process.env.INDEX);
 }
 
 async function scrapeClasses() {
