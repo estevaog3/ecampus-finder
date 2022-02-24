@@ -28,7 +28,7 @@ const mapRecordsToElasticSearchBulk = (records, index) =>
 exports.indexAll = async function indexAll(records, index) {
   try {
     await client.bulk({
-      body: mapRecordsToElasticSearchBulk(records),
+      body: mapRecordsToElasticSearchBulk(records, index),
       index,
       timeout: BULK_TIMEOUT,
     });
