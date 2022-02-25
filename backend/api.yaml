@@ -81,10 +81,10 @@ paths:
                         maximum: 1440
                     days:
                       type: array
-                      example: ["seg", "ter"]
+                      example: ["segunda", "terça"]
                       items:
                         type: string
-                        pattern: ^(seg|ter|qua|qui|sex|sab)$
+                        pattern: ^(segunda|terça|quarta|quinta|sexta|sábado)$
                         maxItems: 168
       responses:
         "200":
