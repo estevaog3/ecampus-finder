@@ -25,6 +25,11 @@ const mapRecordsToElasticSearchBulk = (records, index) =>
     )
     .join("\n")}\n`;
 
+const getDaysOfWeekExcluding = (days) => {
+  let daysOfWeek = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+  return daysOfWeek.filter(dayToKeep => days.every(dayToExclude => dayToKeep !== dayToExclude));
+}
+
 exports.indexAll = async function indexAll(records, index) {
   try {
     await client.bulk({
@@ -62,7 +67,6 @@ exports.query = async function query(
   sort,
   filter,
 ) {
-  // TODO: adicionar o filtro na busca
   try {
     const { body } = await client.search({
       index,
@@ -72,9 +76,35 @@ exports.query = async function query(
       sort,
       body: {
         query: {
-          multi_match: { query: queryString },
-        },
-      },
+          bool: {
+            must:
+            {
+              multi_match: {
+                query: queryString
+              }
+            },
+            filter: [
+              {
+                range: {
+                  inicioTimestamp: { gte: filter.startTimestampsMin[0] }
+                }
+              }, 
+              {
+                range: {
+                  terminoTimestamp: { lte: filter.endTimestampsMin[0] }
+                }
+              }
+            ],
+            must_not: [
+              {
+                terms: {
+                  "horarios.dias": getDaysOfWeekExcluding(filter.days)
+                }
+              }
+            ]
+          }
+        }
+      }
     });
     return body.hits.hits;
   } catch (e) {

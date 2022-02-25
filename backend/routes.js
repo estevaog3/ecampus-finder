@@ -14,6 +14,8 @@ const transformQuery = (query) => {
 router.post("/search", async (req, res) => {
   const { query, limit, offset, sort } = req.query;
   const { filter } = req.body;
+
+  // TODO: Validate filter object before sending to searchClient
   const hits = await searchClient.query(
     process.env.INDEX,
     transformQuery(query),
