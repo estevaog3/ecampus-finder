@@ -2,6 +2,7 @@ require("dotenv").config();
 const Enrollment = require("./Page/Enrollment.js");
 const searchClient = require("../../services/searchClient");
 const fs = require('fs');
+const path = require('path');
 
 async function indexClasses(classes) {
   await searchClient.init(process.env.INDEX);
@@ -30,7 +31,7 @@ async function scrapeClasses() {
 async function main() {
   let classesFile = process.argv[2]
   if(classesFile){
-    fs.readFile(classesFile, (error, data) => {
+    fs.readFile(path.join(process.cwd(), classesFile), (error, data) => {
       if(error){
         console.log(error);
         return;
