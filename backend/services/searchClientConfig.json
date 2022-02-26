@@ -2,14 +2,7 @@
   "mappings": {
     "properties": {
       "codigo": {
-        "type": "text",
-        "index": false,
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
+        "type": "keyword"
       },
       "concorrencia": {
         "type": "float"
@@ -17,80 +10,40 @@
       "curso": {
         "properties": {
           "codigo": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
+            "type": "keyword"
           },
           "nome": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
+            "type": "text"
           }
         }
       },
       "disciplina": {
         "properties": {
           "codigo": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
+            "type": "keyword"
           },
           "nome": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
+            "type": "text"
           }
         }
       },
       "horarios": {
         "properties": {
           "dias": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
+            "type": "text"
           },
           "inicio": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
+            "type": "date",
+            "format": "HH:mm"
           },
           "termino": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
+            "type": "date",
+            "format": "HH:mm"
           }
         }
       },
       "id": {
-        "type": "integer"
+        "type": "keyword"
       },
       "inicioTimestamp": {
         "type": "integer"
