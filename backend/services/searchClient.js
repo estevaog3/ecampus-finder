@@ -86,12 +86,12 @@ exports.query = async function query(
             filter: [
               {
                 range: {
-                  inicioTimestamp: { gte: filter.startTimestampsMin[0] }
+                  inicioTimestamp: { gte: filter.startTimestampMin }
                 }
               }, 
               {
                 range: {
-                  terminoTimestamp: { lte: filter.endTimestampsMin[0] }
+                  terminoTimestamp: { lte: filter.endTimestampMin }
                 }
               }
             ],

@@ -57,28 +57,20 @@ paths:
                 filter:
                   type: object
                   required:
-                    - startTimestampsMin
-                    - endTimestampsMin
+                    - startTimestampMin
+                    - endTimestampMin
                     - days
                   properties:
-                    startTimestampsMin:
-                      example: [500, 950]
-                      type: array
-                      items:
-                        # Pode haver no máximo 24 horários disponíveis para seleção em um único dia.
-                        # Portanto, em uma semana há no máximo 24 * 7 = 168 horários.
-                        maxItems: 168
-                        type: integer
-                        minimum: 1
-                        maximum: 1440
-                    endTimestampsMin:
-                      example: [600, 1000]
-                      type: array
-                      items:
-                        maxItems: 168
-                        type: integer
-                        minimum: 1
-                        maximum: 1440
+                    startTimestampMin:
+                      type: integer
+                      minimum: 1
+                      maximum: 1440
+                      example: 500
+                    endTimestampMin:
+                      example: 1000
+                      type: integer
+                      minimum: 1
+                      maximum: 1440
                     days:
                       type: array
                       example: ["segunda", "terça"]
