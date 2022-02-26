@@ -108,7 +108,7 @@ exports.query = async function query(
     });
     return body.hits.hits;
   } catch (e) {
-    console.log("searchClient query failed:", e);
+    console.log("searchClient query failed:", e.body.error);
     return undefined;
   }
 };
