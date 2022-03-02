@@ -80,7 +80,8 @@ exports.query = async function query(
             must:
             {
               multi_match: {
-                query: queryString
+                query: queryString,
+                fuzziness: "AUTO"
               }
             },
             filter: [
