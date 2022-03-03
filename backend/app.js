@@ -1,6 +1,5 @@
 const express = require("express");
 const logger = require("morgan");
-const path = require("path");
 const cors = require("cors");
 
 const OpenApiValidator = require("express-openapi-validator");
@@ -18,6 +17,7 @@ app.use(
 );
 
 app.use("/", routes);
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({
     message: err.message,

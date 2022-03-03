@@ -1,6 +1,6 @@
 const searchClient = require("../services/searchClient");
 
-module.exports.search = async function (req, res) {
+module.exports.search = async function search(req, res) {
   const { query, limit, offset, sort } = req.query;
   const { filter } = req.body;
 

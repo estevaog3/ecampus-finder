@@ -1,11 +1,11 @@
-const courses = require("../../courses.json");
 const fs = require("fs");
+const courses = require("../../courses.json");
 const CourseFormatter = require("./courseFormatter");
 
-let classes = [];
+const classes = [];
 CourseFormatter.init();
 for (const course of courses.cursos) {
-  let newClasses = CourseFormatter.parseClasses(course, { isFormatted: true });
+  const newClasses = CourseFormatter.parseClasses(course, { isFormatted: true });
   for (const newClass of newClasses) {
     classes.push(newClass);
   }

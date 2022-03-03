@@ -26,7 +26,14 @@ const mapRecordsToElasticSearchBulk = (records, index) =>
     .join("\n")}\n`;
 
 const getDaysOfWeekExcluding = (days) => {
-  let daysOfWeek = ["segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+  const daysOfWeek = [
+    "segunda",
+    "terça",
+    "quarta",
+    "quinta",
+    "sexta",
+    "sábado",
+  ];
   return daysOfWeek.filter((dayToKeep) =>
     days.every((dayToExclude) => dayToKeep !== dayToExclude),
   );
