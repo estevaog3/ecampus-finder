@@ -20,6 +20,8 @@ paths:
           example: "Fotografia 16:00"
           schema:
             type: string
+            minLength: 1
+            maxLength: 128
         - name: limit
           in: query
           required: true
