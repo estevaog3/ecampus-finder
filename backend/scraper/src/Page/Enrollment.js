@@ -95,6 +95,7 @@ Enrollment.scrapeAllCourses = async function scrapeAllCourses() {
   const classes = [];
   CourseFormatter.init();
   for (let i = 1; i < this.numberOfCourses; i++) {
+    // eslint-disable-next-line security-node/detect-crlf
     console.log("begin", i);
     try {
       const course = await this.scrapeCourse(i);

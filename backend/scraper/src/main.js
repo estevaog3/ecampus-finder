@@ -33,7 +33,7 @@ async function main() {
   if (classesFile) {
     fs.readFile(path.join(process.cwd(), classesFile), (error, data) => {
       if (error) {
-        console.log(error);
+        console.log("Error trying to read file");
         return;
       }
       indexClasses(JSON.parse(data));

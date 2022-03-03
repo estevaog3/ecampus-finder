@@ -1,3 +1,4 @@
+/* eslint-disable security-node/detect-crlf */
 function formatCourse(curso) {
   const disciplinas = [];
   let disciplina;

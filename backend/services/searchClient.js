@@ -1,3 +1,4 @@
+/* eslint-disable security-node/detect-crlf */
 const { Client } = require("@elastic/elasticsearch");
 const { BULK_TIMEOUT, SEARCH_TIMEOUT } = require("../constants");
 const config = require("./searchClientConfig.json");

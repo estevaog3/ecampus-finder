@@ -5,7 +5,8 @@
     "es2020": true,
     "node": true
   },
-  "extends": ["airbnb-base", "prettier"],
+  "plugins": ["security-node"],
+  "extends": ["airbnb-base", "plugin:security-node/recommended", "prettier"],
   "parserOptions": {
     "ecmaVersion": 11
   },
