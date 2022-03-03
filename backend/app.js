@@ -3,7 +3,7 @@ const logger = require("morgan");
 const path = require("path");
 const cors = require("cors");
 
-const OpenApiValidator = require('express-openapi-validator');
+const OpenApiValidator = require("express-openapi-validator");
 
 const routes = require("./routes");
 
@@ -11,9 +11,11 @@ const app = express();
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
-app.use(OpenApiValidator.middleware({
-  apiSpec: './api.yaml'
-}))
+app.use(
+  OpenApiValidator.middleware({
+    apiSpec: "./api.yaml",
+  }),
+);
 
 app.use("/", routes);
 app.use((err, req, res, next) => {

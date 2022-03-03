@@ -26,9 +26,11 @@ const mapRecordsToElasticSearchBulk = (records, index) =>
     .join("\n")}\n`;
 
 const getDaysOfWeekExcluding = (days) => {
-  let daysOfWeek = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
-  return daysOfWeek.filter(dayToKeep => days.every(dayToExclude => dayToKeep !== dayToExclude));
-}
+  let daysOfWeek = ["segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+  return daysOfWeek.filter((dayToKeep) =>
+    days.every((dayToExclude) => dayToKeep !== dayToExclude),
+  );
+};
 
 exports.indexAll = async function indexAll(records, index) {
   try {
@@ -77,42 +79,41 @@ exports.query = async function query(
       body: {
         query: {
           bool: {
-            must:
-            {
+            must: {
               multi_match: {
                 query: queryString,
-                fuzziness: "AUTO"
-              }
+                fuzziness: "AUTO",
+              },
             },
             filter: [
               {
                 range: {
-                  inicioTimestamp: { gte: filter.startTimestampMin }
-                }
-              }, 
+                  inicioTimestamp: { gte: filter.startTimestampMin },
+                },
+              },
               {
                 range: {
-                  terminoTimestamp: { lte: filter.endTimestampMin }
-                }
-              }
+                  terminoTimestamp: { lte: filter.endTimestampMin },
+                },
+              },
             ],
             must_not: [
               {
                 terms: {
-                  "horarios.dias": getDaysOfWeekExcluding(filter.days)
-                }
-              }
-            ]
-          }
-        }
-      }
+                  "horarios.dias": getDaysOfWeekExcluding(filter.days),
+                },
+              },
+            ],
+          },
+        },
+      },
     });
     return body.hits.hits;
   } catch (e) {
     console.log("searchClient query failed:");
-    if(e.body && e.body.error) {
+    if (e.body && e.body.error) {
       console.log(e.body.error);
-    }else {
+    } else {
       console.log(e.message);
     }
     return undefined;

@@ -27,4 +27,4 @@ module.exports.search = async function (req, res) {
       };
     }),
   );
-}
+};
