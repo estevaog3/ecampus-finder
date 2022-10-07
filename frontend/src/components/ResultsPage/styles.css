@@ -1,3 +1,5 @@
+
+
 .header {
   display: flex;
   flex-direction: column;
@@ -9,6 +11,32 @@
 
 .header > .title {
   margin-bottom: 10px;
+}
+
+.filter {
+  padding: 8px 10%;
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #dbdbdb91;
+}
+
+.rmsc {
+  width: 200px;
+  --rmsc-p: 8px; /* Spacing */
+  --rmsc-radius: 4px; /* Radius */
+  --rmsc-h: 34px;
+  margin-top: 4px;
+}
+
+.filter .filter__time, .filter .filter__days {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.filter .filter__time label{
+  margin-right: 8px;
 }
 
 .body {
@@ -63,6 +91,27 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  .filter {
+    justify-content: space-evenly;
+    padding: 8px 20%;
+  }
+
+  .filter .filter__time, .filter .filter__days {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .filter .filter__time > div:not(:last-child) {
+    margin-right: 2em;
+  }
+
+  .rmsc {
+    margin-top: 0;
+    margin-left: 8px;
+  }
+  
 
   .header > .title {
     margin-bottom: 0;
