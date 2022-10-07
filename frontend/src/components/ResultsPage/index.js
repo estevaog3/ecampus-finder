@@ -36,9 +36,9 @@ function ResultsPage({ history, location }) {
       "/search",
       {
         filter: {
-          startTimestampsMin: [1],
-          endTimestampsMin: [1440],
-          days: ["seg", "ter", "qua", "qui", "sex", "sab"],
+          startTimestampMin: 1,
+          endTimestampMin: 1440,
+          days: ["segunda", "terça", "quarta", "quinta", "sexta", "sábado"],
         },
       },
       {
