@@ -26,7 +26,7 @@
 }
 
 .results > li:not(:last-child) {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .loading-animation {

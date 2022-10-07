@@ -4,29 +4,14 @@
   color: #303431;
 }
 
+.result-header .result-header__title {
+  font-size: 1.2rem;
+}
+
 .result-body {
   width: 99%;
   margin-left: auto;
   color: #303431;
-}
-
-.concorrencia {
-  height: 1.2rem;
-  margin-right: 0.5rem;
-  position: relative;
-  top: 0.25rem;
-}
-
-.concorrencia--baixa {
-  color: green;
-}
-
-.concorrencia--media {
-  color: #ffb800;
-}
-
-.concorrencia--alta {
-  color: red;
 }
 
 .horarios-wrap {
