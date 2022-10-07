@@ -12,14 +12,14 @@ Enrollment.open = async function open() {
     return;
   }
   await this.page.goto(Enrollment.url);
-  await this.page.waitFor(
+  await this.page.waitForSelector(
     ".dialog > table:nth-of-type(2) > tbody > tr:nth-child(2)",
   );
   // expande o conteúdo abaixo de "DISCIPLINAS DE OUTROS CURSOS"
   await this.page.click(
     ".dialog > table:nth-of-type(2) > tbody > tr:nth-child(2)",
   );
-  await this.page.waitFor(800);
+  await this.page.waitForTimeout(800);
 
   this.numberOfCourses = await this.page.evaluate(() => {
     const select = document.getElementById("curso");
@@ -39,7 +39,7 @@ Enrollment.selectCourse = async function selectCourse(index) {
 Enrollment.scrapeCourse = async function scrapeCourse(index) {
   await this.selectCourse(index);
   await this.page.click("#buscar-por-curso");
-  await this.page.waitFor("#grid-turmas-outros");
+  await this.page.waitForSelector("#grid-turmas-outros");
   return await this.page.evaluate(() => {
     const data = {};
     // get código e nome da disciplina

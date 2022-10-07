@@ -5,9 +5,7 @@ const Login = {
 
   async init(url, viewPort) {
     this.browser = await puppeteer.launch({ headless: false });
-    console.log("creating page...");
     this.page = await this.browser.newPage();
-    console.log("page created");
     await this.page.setViewport(viewPort || { width: 1080, height: 720 });
     if (url) {
       this.url = url;
@@ -19,7 +17,7 @@ const Login = {
       await this.init();
     }
     await this.page.goto(this.url);
-    await this.page.waitFor('a[title="Aluno"]');
+    await this.page.waitForSelector('a[title="Aluno"]');
     this.isLogged = true;
   },
 

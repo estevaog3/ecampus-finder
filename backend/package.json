@@ -15,7 +15,7 @@
     "express": "~4.16.1",
     "express-openapi-validator": "^4.13.5",
     "morgan": "~1.9.1",
-    "puppeteer": "^3.3.0"
+    "puppeteer": "^18.2.1"
   },
   "devDependencies": {
     "@stoplight/prism-cli": "^3.3.6",
