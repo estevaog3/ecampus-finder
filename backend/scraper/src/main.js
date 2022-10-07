@@ -10,15 +10,9 @@ async function indexClasses(classes) {
 }
 
 async function scrapeClasses() {
-  const username = process.env.USUARIO;
-  const password = process.env.SENHA;
-
-  if (!username || !password) {
-    throw Error("username or password is undefined");
-  }
   let classes;
   try {
-    await Enrollment.signIn(username, password);
+    await Enrollment.signIn();
     console.log("signIn passed");
     classes = await Enrollment.scrapeAllCourses();
   } catch (e) {
@@ -40,6 +34,7 @@ async function main() {
     });
   } else {
     const classes = await scrapeClasses();
+    fs.writeFileSync(`classes-${Date()}.json`, JSON.stringify(classes));
     indexClasses(classes);
   }
 }
