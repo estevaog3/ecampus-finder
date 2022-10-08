@@ -35,21 +35,20 @@ function ResultsPage({ history, location }) {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMoreResults, setHasMoreResults] = useState(undefined);
-  const [searchDays, setSearchDays] = useState(SEARCH_DAYS);
+  const [daysFilter, setDaysFilter] = useState(SEARCH_DAYS);
+  const [startTimeFilter, setStartTimeFilter] = useState("00:00");
+  const [endTimeFilter, setEndTimeFilter] = useState("23:59");
+  const [hasFilterChanged, setHasFilterChanged] = useState(false);
 
   const encodeQuery = (query) => {
     return fixedEncodeURIComponent(queryString.parse(query).query);
   };
 
-  const getResults = (queryEncoded, offset, limit) => {
+  const getResults = (queryEncoded, offset, limit, filter) => {
     const res = api.post(
       "/search",
       {
-        filter: {
-          startTimestampMin: 1,
-          endTimestampMin: 1440,
-          days: ["segunda", "terça", "quarta", "quinta", "sexta", "sábado"],
-        },
+        filter: parseFilter(filter),
       },
       {
         params: {
@@ -60,6 +59,20 @@ function ResultsPage({ history, location }) {
       }
     );
     return res;
+  };
+
+  const parseFilter = ({ daysFilter, startTimeFilter, endTimeFilter }) => {
+    const startTimestampMin =
+      parseInt(startTimeFilter.split(":")[0]) * 60 +
+      parseInt(startTimeFilter.split(":")[1]);
+    const endTimestampMin =
+      parseInt(endTimeFilter.split(":")[0]) * 60 +
+      parseInt(endTimeFilter.split(":")[1]);
+    return {
+      days: daysFilter.map(({ value }) => value),
+      startTimestampMin,
+      endTimestampMin,
+    };
   };
 
   const handleSearchError = (e) => {
@@ -79,13 +92,14 @@ function ResultsPage({ history, location }) {
     });
   };
 
-  useEffect(() => {
+  const doSearch = () => {
     setIsLoading(true);
     searchParams.offset = 0;
     getResults(
       encodeQuery(location.search),
       searchParams.offset,
-      searchParams.limit
+      searchParams.limit,
+      { daysFilter, startTimeFilter, endTimeFilter }
     )
       .then((res) => {
         const searchResults = res.data;
@@ -94,11 +108,17 @@ function ResultsPage({ history, location }) {
           searchResults.length === searchParams.limit ? true : false
         );
         setIsLoading(false);
+        setHasFilterChanged(false);
       })
       .catch((e) => {
         handleSearchError(e);
         setIsLoading(false);
+        setHasFilterChanged(false);
       });
+  };
+
+  useEffect(() => {
+    doSearch();
   }, [location.search]);
 
   const renderResults = (results) => {
@@ -118,7 +138,8 @@ function ResultsPage({ history, location }) {
     getResults(
       encodeQuery(location.search),
       searchParams.offset + searchParams.limit,
-      searchParams.limit
+      searchParams.limit,
+      { daysFilter, startTimeFilter, endTimeFilter }
     )
       .then((res) => {
         const searchResults = res.data;
@@ -154,8 +175,11 @@ function ResultsPage({ history, location }) {
           <div>Dias da semana:</div>
           <MultiSelect
             options={SEARCH_DAYS}
-            value={searchDays}
-            onChange={setSearchDays}
+            value={daysFilter}
+            onChange={(newValues) => {
+              setHasFilterChanged(true);
+              setDaysFilter(newValues);
+            }}
             labelledBy="Selecione"
             disableSearch
             overrideStrings={{
@@ -173,7 +197,11 @@ function ResultsPage({ history, location }) {
               type="time"
               name="startTime"
               id="startTime"
-              onChange={(e) => console.log(e.target.value)}
+              value={startTimeFilter}
+              onChange={(e) => {
+                setHasFilterChanged(true);
+                setStartTimeFilter(e.target.value);
+              }}
             />
           </div>
           <div>
@@ -182,10 +210,20 @@ function ResultsPage({ history, location }) {
               type="time"
               name="endTime"
               id="endTime"
-              onChange={(e) => console.log(e.target.value)}
+              value={endTimeFilter}
+              onChange={(e) => {
+                setHasFilterChanged(true);
+                setEndTimeFilter(e.target.value);
+              }}
             />
           </div>
         </div>
+        <Button
+          text="Aplicar"
+          isSmall
+          disabled={!hasFilterChanged}
+          onClick={doSearch}
+        ></Button>
       </div>
       <div className="body">
         {renderResults(results)}
@@ -196,7 +234,11 @@ function ResultsPage({ history, location }) {
             <p className="message">Nenhum resultado encontrado :(</p>
           )
         ) : hasMoreResults ? (
-          <Button text="Carregar Mais" onClick={onLoadMoreClick}>
+          <Button
+            text="Carregar Mais"
+            onClick={onLoadMoreClick}
+            disabled={hasFilterChanged}
+          >
             {isLoading ? (
               <LoadingAnimation className="loading-animation" />
             ) : null}
