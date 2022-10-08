@@ -2,6 +2,11 @@
 
 Buscador de disciplinas optativas para a segunda solicitação de matrícula da UFAM no ecampus.
 
+
+<p align="center">
+  <img src="demo.gif" alt="Demonstração do EcampusFinder" style="height: 700px" />
+</p>
+
 ## 👌 Funcionalidades
 
 - Busca por nome de disciplinas, cursos ou horários
