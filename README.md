@@ -42,7 +42,15 @@ docker run -d -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 -e "discovery.type=s
 # 2) Inicie a API de backend
 cd backend && yarn start 
 
-# 3) Inicie o frontend em outro terminal
+# 3) Obtenha os dados das disciplinas do ecampus, esta etapa requer sua intervenção manual. Mais sobre isso a seguir.
+cd backend && yarn scrape
+
+# 3.1) Um navegador deve ter sido aberto, você deve realizar login no ecampus e depois navegar até a página de solicitação de matrícula.
+# (Se o ecampus der erro depois do login, basta ir para ecampus.ufam.edu.br na URL que você deve estar logado normalmente.)
+# Uma vez na página de solicitação de matrícula, aguarde o programa terminar de obter os dados das disciplinas.
+# Ah, e lembrando que em nenhum momento seus dados pessoais (como login e senha) são processados ou armazenados, fique tranquilo. Em caso de dúvida, sinta-se livre para inspecionar o código do programa :)
+
+# 3) Inicie o frontend
 cd frontend && yarn start
 
 # Pronto! o EcampusFinder deve ter sido aberto automaticamente na URL localhost:3000.
