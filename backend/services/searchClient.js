@@ -1,3 +1,4 @@
+/* eslint-disable security-node/detect-crlf */
 const { Client } = require("@elastic/elasticsearch");
 const { BULK_TIMEOUT, SEARCH_TIMEOUT } = require("../constants");
 const config = require("./searchClientConfig.json");
@@ -25,10 +26,24 @@ const mapRecordsToElasticSearchBulk = (records, index) =>
     )
     .join("\n")}\n`;
 
+const getDaysOfWeekExcluding = (days) => {
+  const daysOfWeek = [
+    "segunda",
+    "terça",
+    "quarta",
+    "quinta",
+    "sexta",
+    "sábado",
+  ];
+  return daysOfWeek.filter((dayToKeep) =>
+    days.every((dayToExclude) => dayToKeep !== dayToExclude),
+  );
+};
+
 exports.indexAll = async function indexAll(records, index) {
   try {
     await client.bulk({
-      body: mapRecordsToElasticSearchBulk(records),
+      body: mapRecordsToElasticSearchBulk(records, index),
       index,
       timeout: BULK_TIMEOUT,
     });
@@ -62,7 +77,6 @@ exports.query = async function query(
   sort,
   filter,
 ) {
-  // TODO: adicionar o filtro na busca
   try {
     const { body } = await client.search({
       index,
@@ -72,13 +86,44 @@ exports.query = async function query(
       sort,
       body: {
         query: {
-          multi_match: { query: queryString },
+          bool: {
+            must: {
+              multi_match: {
+                query: queryString,
+                fuzziness: "AUTO",
+              },
+            },
+            filter: [
+              {
+                range: {
+                  inicioTimestamp: { gte: filter.startTimestampMin },
+                },
+              },
+              {
+                range: {
+                  terminoTimestamp: { lte: filter.endTimestampMin },
+                },
+              },
+            ],
+            must_not: [
+              {
+                terms: {
+                  "horarios.dias": getDaysOfWeekExcluding(filter.days),
+                },
+              },
+            ],
+          },
         },
       },
     });
     return body.hits.hits;
   } catch (e) {
-    console.log("searchClient query failed:", e);
+    console.log("searchClient query failed:");
+    if (e.body && e.body.error) {
+      console.log(e.body.error);
+    } else {
+      console.log(e.message);
+    }
     return undefined;
   }
 };

@@ -4,7 +4,7 @@ const Login = {
   url: "https://ecampus.ufam.edu.br/ecampus/home/login",
 
   async init(url, viewPort) {
-    this.browser = await puppeteer.launch();
+    this.browser = await puppeteer.launch({ headless: false });
     this.page = await this.browser.newPage();
     await this.page.setViewport(viewPort || { width: 1080, height: 720 });
     if (url) {
@@ -12,15 +12,12 @@ const Login = {
     }
   },
 
-  async signIn(username, password) {
+  async signIn() {
     if (!this.page) {
       await this.init();
     }
     await this.page.goto(this.url);
-    await this.page.waitFor("input#usuario");
-    await this.page.type("input#usuario", username);
-    await this.page.type("input#senha", password);
-    await this.page.click("input#enviar");
+    await this.page.waitForSelector('a[title="Aluno"]');
     this.isLogged = true;
   },
 
