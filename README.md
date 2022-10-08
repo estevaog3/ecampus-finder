@@ -50,7 +50,7 @@ cd backend && yarn scrape
 # Uma vez na página de solicitação de matrícula, aguarde o programa terminar de obter os dados das disciplinas.
 # Ah, e lembrando que em nenhum momento seus dados pessoais (como login e senha) são processados ou armazenados, fique tranquilo. Em caso de dúvida, sinta-se livre para inspecionar o código do programa :)
 
-# 3) Inicie o frontend
+# 4) Inicie o frontend
 cd frontend && yarn start
 
 # Pronto! o EcampusFinder deve ter sido aberto automaticamente na URL localhost:3000.
