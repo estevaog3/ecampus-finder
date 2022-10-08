@@ -15,7 +15,22 @@
   position: relative;
 }
 
+.button.button--small {
+  width: auto;
+  height: 2.2rem;
+  padding: .4em .6em;
+  font-size: .8em;
+  font-weight: 600;
+  box-shadow: 0px .1em .3em rgba(0, 0, 0, 0.15);
+  align-self: center;
+}
+
 .button:focus,
 .button:hover {
   border: 1px solid #303431;
+}
+
+.button.button--disabled {
+  pointer-events: none;
+  filter: opacity(.5);
 }
