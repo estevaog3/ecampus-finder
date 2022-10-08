@@ -4,7 +4,7 @@ Buscador de disciplinas optativas para a segunda solicitação de matrícula da 
 
 
 <p align="center">
-  <img src="demo.gif" alt="Demonstração do EcampusFinder" style="height: 700px" />
+  <img src="demo.gif" alt="Demonstração do EcampusFinder" />
 </p>
 
 ## 👌 Funcionalidades
